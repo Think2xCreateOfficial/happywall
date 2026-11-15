@@ -1,0 +1,41 @@
+import React from "react";
+import { Header } from "@/components/layout/Header";
+import { PosterSelectionDrawer } from "@/components/layout/PosterSelectionDrawer";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { CollectionsSection } from "@/components/sections/CollectionsSection";
+import { RoomInspirationSection } from "@/components/sections/RoomInspirationSection";
+import { BestSellingSection } from "@/components/sections/BestSellingSection";
+import { BeforeAfterSection } from "@/components/sections/BeforeAfterSection";
+import { CustomPosterSection } from "@/components/sections/CustomPosterSection";
+import { FAQSection } from "@/components/sections/FAQSection";
+import { Footer } from "@/components/layout/Footer";
+import { ErrorBoundary } from "@/components/common/ErrorBoundary";
+
+export default function HomePage() {
+  return (
+    <main className="min-h-screen bg-charcoal-dark text-white selection:bg-brand-yellow selection:text-charcoal-dark flex flex-col relative">
+      <Header />
+      <ErrorBoundary fallbackTitle="Cart Temporarily Unavailable">
+        <PosterSelectionDrawer />
+      </ErrorBoundary>
+      <HeroSection />
+      <ErrorBoundary fallbackTitle="Unable to load collections catalog">
+        <CollectionsSection />
+      </ErrorBoundary>
+      <ErrorBoundary fallbackTitle="Unable to load room inspiration gallery">
+        <RoomInspirationSection />
+      </ErrorBoundary>
+      <ErrorBoundary fallbackTitle="Unable to load best sellers">
+        <BestSellingSection />
+      </ErrorBoundary>
+      <ErrorBoundary fallbackTitle="Wall transformation unavailable">
+        <BeforeAfterSection />
+      </ErrorBoundary>
+      <ErrorBoundary fallbackTitle="Custom poster studio unavailable">
+        <CustomPosterSection />
+      </ErrorBoundary>
+      <FAQSection />
+      <Footer />
+    </main>
+  );
+}

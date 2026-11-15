@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-manrope: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-charcoal-base: #1C1C1C;
+  --color-charcoal-dark: #121212;
+  --color-brand-yellow: #F5B700;
+  --color-cream-white: #FFF8E6;
+  --color-pure-white: #FFFFFF;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: #121212;
+  color: #FFFFFF;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Selection Highlight */
+::selection {
+  background-color: #F5B700;
+  color: #121212;
+}
+
+/* Custom Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2A2A;
+  border-radius: 9999px;
+  border: 2px solid #121212;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F5B700;
+}
+
+/* Accessible Focus Ring */
+:focus-visible {
+  outline: 2px solid #F5B700;
+  outline-offset: 3px;
+}
+
+/* Gallery Depth & Realistic Poster Lighting */
+.poster-shadow-hero {
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px -10px rgba(245, 183, 0, 0.12);
+}
+
+.poster-bevel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.poster-bevel-yellow {
+  border: 1px solid rgba(245, 183, 0, 0.4);
+}
+
+/* Kinetic Brush Font Simulation for Hero "YOUR STORY." */
+.brush-accent {
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 800;
+  color: #F5B700;
+  letter-spacing: -0.02em;
+  display: inline-block;
+  transform: skewX(-4deg);
+}
+
+/* Hide scrollbars for category carousel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
