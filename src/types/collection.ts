@@ -10,6 +10,7 @@ export interface PosterCollectionItem {
   badge?: string;
   sizeText: string;
   price: number;
+  inclusions?: string;
   whatsappMessage: string;
 }
 

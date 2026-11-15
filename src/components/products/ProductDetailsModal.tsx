@@ -17,16 +17,16 @@ interface ProductDetailsModalProps {
 }
 
 export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ product, onClose }) => {
-  const [selectedSizeId, setSelectedSizeId] = useState<PosterSize>("A3");
+  const [selectedSizeId, setSelectedSizeId] = useState<PosterSize>("A4");
   const [quantity, setQuantity] = useState<number>(1);
-  const [customerNote, setCustomerNote] = useState<string>("" );
+  const [customerNote, setCustomerNote] = useState<string>("");
   const [isAdded, setIsAdded] = useState<boolean>(false);
   const { addItem } = useCart();
 
   useEffect(() => {
     if (product) {
       document.body.style.overflow = "hidden";
-      setSelectedSizeId("A3");
+      setSelectedSizeId(product.availableSizes[0]?.id || "A4");
       setQuantity(1);
       setCustomerNote("");
       setIsAdded(false);
@@ -134,14 +134,22 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
               {product.name}
             </h3>
 
-            <p className="text-xs sm:text-sm text-brand-muted font-inter leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-brand-muted font-inter leading-relaxed mb-4">
               {product.description}
             </p>
+
+            {/* Inclusions badge if applicable */}
+            {(product.inclusions || activeSize.inclusions) && (
+              <div className="mb-5 px-3 py-2 rounded-xl bg-brand-yellow/10 border border-brand-yellow/30 text-xs text-brand-yellow font-manrope font-bold flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
+                <span>Included: {product.inclusions || activeSize.inclusions}</span>
+              </div>
+            )}
 
             {/* Size Selector */}
             <div className="mb-6">
               <label className="text-xs font-manrope font-bold text-white/90 uppercase tracking-wider block mb-2.5">
-                Select Size &amp; Finish:
+                Select Option / Size:
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {product.availableSizes.map((size) => {
@@ -160,14 +168,14 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
                     >
                       <div className="flex items-center justify-between w-full">
                         <span className="font-manrope font-extrabold text-xs text-white">
-                          {size.id}
+                          {size.name || size.id}
                         </span>
                         <span className="text-xs font-manrope font-bold text-brand-yellow">
                           {formatINR(size.price)}
                         </span>
                       </div>
                       <span className="text-[10px] text-brand-muted mt-1">
-                        {size.dimensions}
+                        {size.inclusions || size.dimensions}
                       </span>
                       {isSelected && (
                         <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-brand-yellow" />

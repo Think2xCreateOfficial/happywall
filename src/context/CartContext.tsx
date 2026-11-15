@@ -3,6 +3,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { Product, PosterSize } from "@/types/product";
 import { PosterCollectionItem } from "@/types/collection";
+import { calculateCartSubtotal } from "@/lib/products/pricing-utils";
+import { isValidCartItem } from "@/lib/products/cart-utils";
 
 export interface CartItem {
   id: string;
@@ -14,6 +16,7 @@ export interface CartItem {
   dimensions: string;
   price: number;
   quantity: number;
+  inclusions?: string;
   whatsappMessage?: string;
 }
 
@@ -49,19 +52,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          // Validate each item to prevent corrupted data crashes
-          const validItems = parsed.filter(
-            (item): item is CartItem =>
-              Boolean(
-                item &&
-                typeof item.id === "string" &&
-                typeof item.name === "string" &&
-                typeof item.price === "number" &&
-                !isNaN(item.price) &&
-                typeof item.quantity === "number" &&
-                item.quantity > 0
-              )
-          );
+          // Validate each item with central validator
+          const validItems = parsed.filter(isValidCartItem);
           setItems(validItems);
         }
       }
@@ -107,6 +99,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       let size: string;
       let dimensions: string;
       let unitPrice: number;
+      let inclusions: string | undefined;
       let whatsappMessage: string | undefined;
 
       // Discriminate Product vs PosterCollectionItem
@@ -121,7 +114,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
           prod.availableSizes.find((s) => s.id === sizeChoice) || prod.availableSizes[0];
         size = resolvedSizeOption.id;
         dimensions = resolvedSizeOption.dimensions;
-        unitPrice = resolvedSizeOption.price;
+        unitPrice = Math.round(resolvedSizeOption.price);
+        inclusions = resolvedSizeOption.inclusions || prod.inclusions;
       } else {
         // PosterCollectionItem
         const col = itemOrProduct as PosterCollectionItem;
@@ -129,9 +123,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         name = col.title;
         category = col.category;
         image = col.image;
-        size = sizeChoice || "A3 Standard";
-        dimensions = col.sizeText || "29.7 × 42 cm";
-        unitPrice = col.price;
+        size = sizeChoice || (col.categorySlug === "split-poster" ? "Split Poster Set" : "A4 Size Poster");
+        dimensions = col.sizeText || (col.categorySlug === "split-poster" ? "3 × A4 size posters" : "21 × 29.7 cm");
+        unitPrice = Math.round(col.price);
+        inclusions = col.inclusions;
         whatsappMessage = col.whatsappMessage;
       }
 
@@ -161,6 +156,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
             dimensions,
             price: unitPrice,
             quantity,
+            inclusions,
             whatsappMessage,
           },
         ];
@@ -194,10 +190,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const totalItems = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
-  const totalAmount = items.reduce(
-    (sum, item) => sum + (item.price || 0) * (item.quantity || 0),
-    0
-  );
+  const totalAmount = calculateCartSubtotal(items);
 
   return (
     <CartContext.Provider

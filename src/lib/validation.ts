@@ -51,6 +51,8 @@ export function validateCustomPosterForm(data: {
     "Anime",
     "Games",
     "Split Poster",
+    "Polarized Photo Set with Spotify",
+    "Custom Poster + Frame Combo",
     "Motivational Posters",
     "Custom Design",
     "Other",
@@ -61,10 +63,13 @@ export function validateCustomPosterForm(data: {
 
   // 5. Poster Size (Required dropdown)
   const validSizes: CustomPosterSizeChoice[] = [
+    "A6",
     "A5",
     "A4",
     "A3",
     "A2",
+    "Split Set (3 × A4)",
+    "15 Photos Set",
     "Custom Size",
     "Need Recommendation",
   ];

@@ -1,0 +1,99 @@
+/* Happy Walls - Production Page Loader */
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #121212;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  transition: opacity 0.25s ease-out, visibility 0.25s ease-out;
+  pointer-events: auto;
+}
+
+/* Exact Geometry & Perspective Animation */
+.loader {
+  width: 100px;
+  height: 45px;
+  position: relative;
+  color: #F5B700;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #F5B700;
+  box-shadow: 0 0 0 50px #F5B700;
+  clip-path: polygon(
+    -50px -20px,
+    10% -12px,
+    20% 0,
+    calc(50% - 15px) 0,
+    calc(50% - 10px) -20px,
+    calc(50% - 8px) -15px,
+    calc(50% + 8px) -15px,
+    calc(50% + 10px) -20px,
+    calc(50% + 15px) 0,
+    80% 0,
+    90% -12px,
+    calc(100% + 50px) -20px,
+    100% 80%,
+    calc(100% + 10px) calc(100% + 10px),
+    60% 100%,
+    50% calc(100% + 15px),
+    40% 100%,
+    -10px calc(100% + 10px),
+    0 80%
+  );
+}
+
+.loader::after {
+  animation: l9 1s infinite;
+  transform: perspective(300px) translateZ(0px);
+}
+
+@keyframes l9 {
+  to {
+    transform: perspective(300px) translateZ(100px);
+    opacity: 0;
+  }
+}
+
+.brandIdentifier {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  user-select: none;
+}
+
+.brandTitle {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.brandTagline {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #F5B700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader::after {
+    animation: none;
+    opacity: 0.5;
+  }
+}

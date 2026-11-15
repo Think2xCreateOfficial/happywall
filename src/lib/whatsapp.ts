@@ -29,42 +29,54 @@ export function formatGeneralInquiryMessage(): string {
  * Formats a specific single-product order inquiry.
  */
 export function formatProductOrderMessage(order: ProductOrderEnquiry): string {
+  const unitPrice = Math.round(order.totalPrice / Math.max(1, order.quantity));
   return [
-    `*NEW POSTER ORDER INQUIRY — HAPPY WALLS* 🖼️`,
+    `HAPPY WALLS – PRODUCT ENQUIRY 🖼️`,
     `----------------------------------------`,
-    `📌 *Product:* ${order.productName}`,
-    `🆔 *Item ID:* ${order.productId}`,
-    `📐 *Size Selected:* ${order.size} (${order.dimensions})`,
-    `🔢 *Quantity:* ${order.quantity}`,
-    `💰 *Estimated Total:* ₹${order.totalPrice}`,
-    order.customerNote ? `💬 *Note:* ${order.customerNote}` : '',
+    `Product: ${order.productName}`,
+    `Size: ${order.size} (${order.dimensions})`,
+    `Price: ₹${unitPrice}`,
+    `Quantity: ${order.quantity}`,
+    `Subtotal: ₹${order.totalPrice}`,
+    order.customerNote ? `Note: ${order.customerNote}` : '',
     `----------------------------------------`,
-    `Could you please confirm availability and provide payment details (UPI/GPay)? Thank you!`,
+    `Hello Happy Walls team! Could you please share the next steps for placing this order?`,
   ]
     .filter(Boolean)
     .join('\n');
 }
 
 /**
- * Formats a multi-item cart checkout order inquiry.
+ * Formats a multi-item cart checkout order inquiry according to client specification.
  */
 export function formatCartOrderMessage(items: CartItem[], totalAmount: number): string {
   const itemList = items
-    .map(
-      (item, idx) =>
-        `${idx + 1}. *${item.name}*\n   • Category: ${item.category}\n   • Size: ${item.size} (${item.dimensions})\n   • Qty: ${item.quantity} × ₹${item.price} = ₹${item.price * item.quantity}`
-    )
+    .map((item, idx) => {
+      const lines = [
+        `${idx + 1}. *${item.name}*`,
+        `   Size: ${item.size}`,
+        `   Price: ₹${item.price}`,
+        `   Quantity: ${item.quantity}`,
+      ];
+      if (item.inclusions) {
+        lines.push(`   Includes: ${item.inclusions}`);
+      }
+      lines.push(`   Subtotal: ₹${item.price * item.quantity}`);
+      return lines.join('\n');
+    })
     .join('\n\n');
 
   return [
-    `*NEW POSTER SELECTION ORDER — HAPPY WALLS* 🖼️🛍️`,
+    `HAPPY WALLS – ORDER ENQUIRY 🖼️`,
     `----------------------------------------`,
+    `Selected Products:`,
+    ``,
     itemList,
+    ``,
     `----------------------------------------`,
-    `🧾 *Total Items:* ${items.reduce((sum, i) => sum + i.quantity, 0)}`,
-    `💰 *Estimated Total Amount:* ₹${totalAmount}`,
+    `Cart Subtotal: ₹${totalAmount}`,
     `----------------------------------------`,
-    `Hello Happy Walls team! I have selected these posters on your website and would like to proceed with the order. Could you please confirm delivery within Chennai and share UPI payment QR?`,
+    `Hello Happy Walls team! I would like to enquire about these products. Please share the next steps for placing my order.`,
   ].join('\n');
 }
 

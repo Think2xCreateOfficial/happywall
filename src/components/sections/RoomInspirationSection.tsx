@@ -95,14 +95,29 @@ export const RoomInspirationSection: React.FC = () => {
         */}
         <div className="relative w-full overflow-hidden border border-charcoal-border shadow-2xl bg-charcoal-surface">
           <div className="relative w-full aspect-[3/2] overflow-hidden select-none">
-            <Image
-              src={activeEnv.image}
-              alt={activeEnv.headline}
-              fill
-              sizes="(max-width: 1200px) 100vw, 1200px"
-              className="object-cover object-center pointer-events-none"
-              priority
-            />
+            {/* Preloaded, stacked room images with zero-latency smooth crossfade */}
+            {ROOM_ENVIRONMENTS.map((env) => {
+              const isEnvActive = env.id === selectedEnvId;
+              return (
+                <div
+                  key={env.id}
+                  className={cn(
+                    "absolute inset-0 transition-opacity duration-300 ease-in-out",
+                    isEnvActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  )}
+                  aria-hidden={!isEnvActive}
+                >
+                  <Image
+                    src={env.image}
+                    alt={env.headline}
+                    fill
+                    sizes="(max-width: 1200px) 100vw, 1200px"
+                    className="object-cover object-center pointer-events-none"
+                    priority
+                  />
+                </div>
+              );
+            })}
 
             {/* Interactive Numbered Hotspots Over Wall Frames */}
             {activeEnv.hotspots.map((hotspot, idx) => {

@@ -1,4 +1,5 @@
 import { CategoryCollection, PosterCollectionItem } from "@/types/collection";
+import { CLIENT_PRICING } from "@/data/products/product-catalog";
 
 export const COLLECTIONS: CategoryCollection[] = [
   {
@@ -10,7 +11,7 @@ export const COLLECTIONS: CategoryCollection[] = [
     image: "1vntvoT5PiVTkFJPlIgW5SQK1WAr6wf5l",
     iconName: "Flame",
     badge: "Trending",
-    featuredCount: "30+ Designs",
+    featuredCount: "A4 ₹39 · A5 ₹19 · A6 ₹9",
     whatsappMessage: "Hello Happy Walls! I would like to explore your *Anime Poster Collection* catalog from Google Drive.",
   },
   {
@@ -22,7 +23,7 @@ export const COLLECTIONS: CategoryCollection[] = [
     image: "12Rrc-qcaVcCLwT6aEnp6NzuoIFo6SaNG",
     iconName: "Gamepad2",
     badge: "Popular",
-    featuredCount: "20+ Designs",
+    featuredCount: "A4 ₹39 · A5 ₹19 · A6 ₹9",
     whatsappMessage: "Hello Happy Walls! I would love to see your *Gaming & Battlestation Poster* catalog and available sizes.",
   },
   {
@@ -34,13 +35,13 @@ export const COLLECTIONS: CategoryCollection[] = [
     image: "1OncBnP0G47_nZGmkvK2KxSyQfsBg6T2-",
     iconName: "Layers",
     badge: "Signature",
-    featuredCount: "10 Triptychs",
+    featuredCount: "3 × A4 Set · ₹109",
     whatsappMessage: "Hello Happy Walls! I am interested in your *Split Poster (3-Panel Triptych)* collections. Could you share details and pricing?",
   },
 ];
 
 export const COLLECTION_POSTERS: PosterCollectionItem[] = [
-  // --- ANIME POSTERS (From Google Drive) ---
+  // --- ANIME POSTERS (A4 ₹39, A5 ₹19, A6 ₹9) ---
   {
     id: "drive-anime-01",
     slug: "anime-poster-01",
@@ -49,9 +50,10 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "anime",
     image: "1vntvoT5PiVTkFJPlIgW5SQK1WAr6wf5l",
     badge: "Trending",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
-    whatsappMessage: "Hello Happy Walls! I want to order the *Anime Icon Collection 01* poster. Please share available sizes and delivery details for Chennai.",
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
+    whatsappMessage: "Hello Happy Walls! I want to order the *Anime Icon Collection 01* poster.",
   },
   {
     id: "drive-anime-02",
@@ -61,9 +63,10 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "anime",
     image: "1QmbnM9TucsUW0mvg7YNaZ0J00a9odOgk",
     badge: "Popular",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
-    whatsappMessage: "Hello Happy Walls! I am interested in the *Anime Icon Collection 02* poster. Could you share pricing and framing options?",
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
+    whatsappMessage: "Hello Happy Walls! I am interested in the *Anime Icon Collection 02* poster.",
   },
   {
     id: "drive-anime-03",
@@ -73,9 +76,10 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "anime",
     image: "1A5gcb2ipTj7wKa13C48uwv4Nabin-8jf",
     badge: "Hot Pick",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
-    whatsappMessage: "Hello Happy Walls! I want to order *Anime Icon Collection 03*. How soon can it be delivered in Chennai?",
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
+    whatsappMessage: "Hello Happy Walls! I want to order *Anime Icon Collection 03*.",
   },
   {
     id: "drive-anime-04",
@@ -85,8 +89,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "anime",
     image: "16jTnTs_gWTCX09YKqRQ1UJsPR6QBjVBe",
     badge: "Best Seller",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
     whatsappMessage: "Hello Happy Walls! I would like to order the *Anime Icon Collection 04* wall poster.",
   },
   {
@@ -97,8 +102,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "anime",
     image: "1IE7Cp4ETU3G8Hb9qFwyu91gw-wcJ3djR",
     badge: "Classic",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
     whatsappMessage: "Hello Happy Walls! I am interested in ordering *Anime Icon Collection 05*.",
   },
   {
@@ -109,12 +115,13 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "anime",
     image: "1JC7y-_tO2JqL5hArCdL3ltnWVBCGjRyt",
     badge: "Trending",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
     whatsappMessage: "Hello Happy Walls! I want to order the *Anime Icon Collection 06* poster.",
   },
 
-  // --- GAMES POSTERS (From Google Drive) ---
+  // --- GAMES POSTERS (A4 ₹39, A5 ₹19, A6 ₹9) ---
   {
     id: "drive-games-01",
     slug: "games-poster-01",
@@ -123,8 +130,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "games",
     image: "12Rrc-qcaVcCLwT6aEnp6NzuoIFo6SaNG",
     badge: "Top Pick",
-    sizeText: "A3 / A4 · RGB Calibrated",
-    price: 499,
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
     whatsappMessage: "Hello Happy Walls! I want to enquire about the *Battlestation Cyber Gaming 01* poster for my desk setup.",
   },
   {
@@ -135,8 +143,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "games",
     image: "1nrytkv6uz33Bjv5bZeIZKkDxDhsNCbUO",
     badge: "Popular",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
     whatsappMessage: "Hello Happy Walls! I am interested in the *Battlestation Cyber Gaming 02* poster.",
   },
   {
@@ -147,8 +156,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "games",
     image: "1lHPk0uulhHperxgmRrKR-tvKIZq52TpB",
     badge: "Aesthetic",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
     whatsappMessage: "Hello Happy Walls! Please share details on *Battlestation Cyber Gaming 03* poster.",
   },
   {
@@ -159,12 +169,13 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "games",
     image: "1Q1ZfJbkWfkWV4Ys0gXQwgDgPkVIenRfE",
     badge: "Trending",
-    sizeText: "A3 / A4 · 300 GSM Matte",
-    price: 499,
+    sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
+    price: CLIENT_PRICING.A4_POSTER,
+    inclusions: "1 × A4 size poster",
     whatsappMessage: "Hello Happy Walls! I would like to order *Battlestation Cyber Gaming 04* for my gaming room.",
   },
 
-  // --- SPLIT POSTERS (From Google Drive) ---
+  // --- SPLIT POSTERS (Set of 3 × A4: ₹109) ---
   {
     id: "drive-split-01",
     slug: "split-poster-01",
@@ -173,9 +184,10 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "split-poster",
     image: "1OncBnP0G47_nZGmkvK2KxSyQfsBg6T2-",
     badge: "Signature",
-    sizeText: "3-Panel Set · 2mm Gaps",
-    price: 1299,
-    whatsappMessage: "Hello Happy Walls! I want to order the *Continuous Triptych Set 01 (Split Poster)*. Please confirm size options.",
+    sizeText: "Includes: 3 × A4 size posters",
+    price: CLIENT_PRICING.SPLIT_POSTER_SET,
+    inclusions: "3 × A4 size posters",
+    whatsappMessage: "Hello Happy Walls! I want to order the *Continuous Triptych Set 01 (Split Poster)* with 3 × A4 posters.",
   },
   {
     id: "drive-split-02",
@@ -185,9 +197,10 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "split-poster",
     image: "1epGYsd6HD2jXzjUiCzaZ_yY4FaSeB5jf",
     badge: "Signature",
-    sizeText: "3-Panel Canvas Panorama",
-    price: 1299,
-    whatsappMessage: "Hello Happy Walls! I am interested in the *Continuous Triptych Set 02 (Split Poster)*. Could you share price and details?",
+    sizeText: "Includes: 3 × A4 size posters",
+    price: CLIENT_PRICING.SPLIT_POSTER_SET,
+    inclusions: "3 × A4 size posters",
+    whatsappMessage: "Hello Happy Walls! I am interested in the *Continuous Triptych Set 02 (Split Poster)*.",
   },
   {
     id: "drive-split-03",
@@ -197,8 +210,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "split-poster",
     image: "1o4CQOCwA4PaoQyE6dZp0WvQLE1vdKKy_",
     badge: "Signature",
-    sizeText: "3-Panel Set · Ultra-Wide",
-    price: 1299,
+    sizeText: "Includes: 3 × A4 size posters",
+    price: CLIENT_PRICING.SPLIT_POSTER_SET,
+    inclusions: "3 × A4 size posters",
     whatsappMessage: "Hello Happy Walls! I want to enquire about *Continuous Triptych Set 03 (Split Poster)*.",
   },
   {
@@ -209,8 +223,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "split-poster",
     image: "1kWAL4cn9iw3SgCE2VDHi8uNbfseCLD4T",
     badge: "Signature",
-    sizeText: "3-Panel Set · 2mm Gaps",
-    price: 1299,
+    sizeText: "Includes: 3 × A4 size posters",
+    price: CLIENT_PRICING.SPLIT_POSTER_SET,
+    inclusions: "3 × A4 size posters",
     whatsappMessage: "Hello Happy Walls! I would like to order *Continuous Triptych Set 04 (Split Poster)*.",
   },
   {
@@ -221,8 +236,9 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     categorySlug: "split-poster",
     image: "17HbiDnSsoy-djpk7AFR3Rfx_ryb_nk9t",
     badge: "Signature",
-    sizeText: "3-Panel Set · Archival Matte",
-    price: 1299,
+    sizeText: "Includes: 3 × A4 size posters",
+    price: CLIENT_PRICING.SPLIT_POSTER_SET,
+    inclusions: "3 × A4 size posters",
     whatsappMessage: "Hello Happy Walls! I am interested in *Continuous Triptych Set 05 (Split Poster)*.",
   },
 ];

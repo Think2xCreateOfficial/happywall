@@ -1,5 +1,5 @@
 {
-  "name": "Happy Walls",
+  "name": "Happy Walls — Handcrafted Wall Posters & Triptychs",
   "short_name": "Happy Walls",
   "description": "Discover creative wall posters, aesthetic prints and custom wall art at Happy Walls, Palavakkam, Chennai. Explore collections and order directly through WhatsApp.",
   "start_url": "/",
@@ -8,10 +8,19 @@
   "theme_color": "#F5B700",
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }
   ]
 }
-

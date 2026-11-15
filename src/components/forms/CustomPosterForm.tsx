@@ -13,16 +13,18 @@ const POSTER_TYPE_OPTIONS: CustomPosterType[] = [
   "Anime",
   "Games",
   "Split Poster",
-  "Motivational Posters",
+  "Polarized Photo Set with Spotify",
+  "Custom Poster + Frame Combo",
   "Custom Design",
   "Other",
 ];
 
 const POSTER_SIZE_OPTIONS: { id: CustomPosterSizeChoice; label: string; details: string }[] = [
+  { id: "A6", label: "A6 Pocket Mini", details: "10.5 × 14.8 cm" },
   { id: "A5", label: "A5 Compact", details: "14.8 × 21 cm" },
-  { id: "A4", label: "A4 Classic", details: "21 × 29.7 cm" },
-  { id: "A3", label: "A3 Standard (Most Popular)", details: "29.7 × 42 cm" },
-  { id: "A2", label: "A2 Gallery Large", details: "42 × 59.4 cm" },
+  { id: "A4", label: "A4 Standard", details: "21 × 29.7 cm" },
+  { id: "Split Set (3 × A4)", label: "Split Poster Set", details: "3 × A4 size posters" },
+  { id: "15 Photos Set", label: "Polarized Photo Set", details: "15 photos with Spotify" },
   { id: "Custom Size", label: "Custom Dimensions", details: "Specify in notes" },
   { id: "Need Recommendation", label: "Need Recommendation", details: "Our team will assist" },
 ];

@@ -56,8 +56,8 @@ export const FAQS: FAQItem[] = [
     id: "faq-sizes-available",
     category: "custom",
     categoryLabel: "Custom Posters",
-    question: "What poster sizes are available?",
-    answer: "Happy Walls offers standard international art paper dimensions including A5 (14.8 × 21 cm), A4 (21 × 29.7 cm), A3 (29.7 × 42 cm), and A2 / A3+ (32.9 × 48.3 cm). We also accommodate custom dimensions and 3-panel split triptych sizing upon request.",
+    question: "What poster sizes and sets are available at Happy Walls?",
+    answer: "Happy Walls offers individual posters in A4 size (₹39), A5 size (₹19), and A6 size (₹9), alongside our 3-panel Split Poster Sets (3 × A4 size posters for ₹109), Polarized Customized Photo Sets with Spotify (15 photos for ₹99), and complete Custom Poster + Frame Combos (₹249).",
   },
   {
     id: "faq-room-poster-advice",

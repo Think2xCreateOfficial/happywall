@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Eye, Plus, Check } from "lucide-react";
-import { Product } from "@/types/product";
+import { Product } from "@/types/product.types";
 import { formatINR, cn } from "@/lib/utils";
 import { getDriveImageUrl } from "@/lib/drive";
 import { useCart } from "@/context/CartContext";
@@ -19,13 +19,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.stopPropagation();
-    addItem(product, "A3", 1);
+    const defaultSize = product.availableSizes[0]?.id || "A4";
+    addItem(product, defaultSize, 1);
     setAddedRecently(true);
     setTimeout(() => setAddedRecently(false), 1500);
   };
-
-  // Original regular price calculation (e.g. ₹ 799 vs ₹ 499)
-  const originalPrice = product.basePrice + 300;
 
   return (
     <div
@@ -46,23 +44,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
 
-        {/* Top Tag / Discount Badge */}
-        <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5">
-          <span className="px-2 py-0.5 rounded-full bg-charcoal-dark/90 text-brand-yellow border border-brand-yellow/30 text-[9px] sm:text-[10px] font-manrope font-extrabold uppercase tracking-wider shadow">
-            Save ₹300
-          </span>
-          {product.tag && (
+        {/* Top Tag */}
+        {product.tag && (
+          <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5">
             <span className="px-2 py-0.5 rounded-full bg-brand-yellow text-charcoal-dark text-[9px] sm:text-[10px] font-manrope font-black uppercase tracking-wider shadow">
               {product.tag}
             </span>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Hover Quick View Pill */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 pointer-events-none p-4">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-charcoal-dark/90 border border-brand-yellow/60 text-xs font-manrope font-bold text-brand-yellow shadow-lg">
             <Eye className="w-3.5 h-3.5" />
-            <span>Quick View</span>
+            <span>View Details</span>
           </span>
         </div>
       </div>
@@ -81,16 +76,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
         {/* Pricing & Add to Selection Action */}
         <div className="mt-3 pt-2.5 border-t border-charcoal-border/70 flex items-center justify-between">
           <div className="flex flex-col">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-base sm:text-lg font-manrope font-black text-brand-yellow tracking-tight">
-                {formatINR(product.basePrice)}
-              </span>
-              <span className="text-[11px] text-white/40 line-through font-medium">
-                {formatINR(originalPrice)}
-              </span>
-            </div>
+            <span className="text-base sm:text-lg font-manrope font-black text-brand-yellow tracking-tight">
+              {formatINR(product.basePrice)}
+            </span>
             <span className="text-[10px] text-brand-muted font-medium">
-              300 GSM Archival Matte
+              {product.inclusions || "300 GSM Archival Matte"}
             </span>
           </div>
 

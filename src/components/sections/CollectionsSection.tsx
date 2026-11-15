@@ -13,7 +13,7 @@ import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { useCart } from "@/context/CartContext";
 
 const CATEGORY_TABS: { id: CollectionCategorySlug; label: string }[] = [
-  { id: "all", label: "All Posters" },
+  { id: "all", label: "All Products" },
   { id: "anime", label: "Anime" },
   { id: "games", label: "Games" },
   { id: "split-poster", label: "Split Poster" },
@@ -30,7 +30,10 @@ export const CollectionsSection: React.FC = () => {
       : COLLECTION_POSTERS.filter((item) => item.categorySlug === activeCategory);
 
   const handleAddToCart = (poster: PosterCollectionItem) => {
-    addItem(poster, "A3 Standard", 1);
+    const sizeChoice =
+      poster.categorySlug === "split-poster" ? "Split Poster Set" : "A4 Size Poster";
+
+    addItem(poster, sizeChoice, 1);
     setRecentlyAdded((prev) => ({ ...prev, [poster.id]: true }));
     setTimeout(() => {
       setRecentlyAdded((prev) => ({ ...prev, [poster.id]: false }));
@@ -154,9 +157,9 @@ export const CollectionsSection: React.FC = () => {
                       {poster.title}
                     </h3>
 
-                    {/* Size & Paper Note */}
+                    {/* Size & Inclusions Note */}
                     <p className="text-[10px] sm:text-[11px] text-brand-muted/70 truncate mt-0.5 font-inter">
-                      {poster.sizeText}
+                      {poster.inclusions ? `Inclusions: ${poster.inclusions}` : poster.sizeText}
                     </p>
                   </div>
 

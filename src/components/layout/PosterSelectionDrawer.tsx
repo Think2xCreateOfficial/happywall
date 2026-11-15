@@ -172,10 +172,23 @@ export const PosterSelectionDrawer: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between mt-3">
-                      <span className="font-manrope font-extrabold text-sm text-brand-yellow">
-                        {formatINR(item.price * item.quantity)}
-                      </span>
+                    {item.inclusions && (
+                      <p className="text-[10px] text-brand-yellow/90 font-mono mt-1 truncate">
+                        Includes: {item.inclusions}
+                      </p>
+                    )}
+
+                    <div className="flex items-center justify-between mt-2.5">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="font-manrope font-black text-sm text-brand-yellow">
+                          {formatINR(item.price * item.quantity)}
+                        </span>
+                        {item.quantity > 1 && (
+                          <span className="text-[10px] text-white/50 font-mono">
+                            ({formatINR(item.price)} each)
+                          </span>
+                        )}
+                      </div>
 
                       {/* Quantity Controls */}
                       <div className="flex items-center gap-2 bg-charcoal-card rounded-lg border border-charcoal-border px-2 py-1">

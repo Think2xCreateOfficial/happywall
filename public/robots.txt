@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /private/
+Disallow: /api/
+Disallow: /admin/
 
-Sitemap: https://happywalls.in/sitemap.xml
-
+Sitemap: https://happywall.think2xcreate.com/sitemap.xml
