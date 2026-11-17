@@ -4,6 +4,7 @@ import {
   SUPABASE_STORAGE_BUCKET,
   isSupabaseConfigured,
 } from "@/lib/supabase/config";
+import { parseAppError } from "@/lib/errorHandler";
 
 export const DEFAULT_FALLBACK_IMAGE = "/images/default-fallback_image.webp";
 
@@ -82,7 +83,13 @@ export async function uploadImage(
       });
 
     if (uploadError) {
-      return { success: false, error: uploadError.message };
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[HappyWalls Storage Warning]:", uploadError.message);
+      }
+      return {
+        success: false,
+        error: parseAppError(uploadError, "Failed to upload image. Please try again."),
+      };
     }
 
     const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_STORAGE_BUCKET}/${storagePath}`;
@@ -93,8 +100,13 @@ export async function uploadImage(
       storagePath,
     };
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Image upload failed";
-    return { success: false, error: message };
+    if (process.env.NODE_ENV === "development") {
+      console.error("[HappyWalls Storage Exception]:", err);
+    }
+    return {
+      success: false,
+      error: parseAppError(err, "Image upload failed. Please try again."),
+    };
   }
 }
 

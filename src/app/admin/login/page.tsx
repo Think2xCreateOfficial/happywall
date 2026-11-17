@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff, ShieldCheck, AlertCircle } from "lucide-react";
 import { signInAdmin } from "@/services/auth.service";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { parseAppError } from "@/lib/errorHandler";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -25,10 +26,24 @@ export default function AdminLoginPage() {
 
   const configured = isSupabaseConfigured();
 
+  // Log detailed developer diagnostics in dev mode without exposing internals in the UI
+  useEffect(() => {
+    if (!configured && process.env.NODE_ENV === "development") {
+      console.warn(
+        "[HappyWalls Dev Notice] Backend service is unconfigured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your .env.local file to enable database and authentication features."
+      );
+    }
+  }, [configured]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !password) {
       setErrorMessage("Please enter both email and password.");
+      return;
+    }
+
+    if (!configured) {
+      setErrorMessage("The administration service is currently unavailable. Please contact your system administrator.");
       return;
     }
 
@@ -39,15 +54,15 @@ export default function AdminLoginPage() {
       const result = await signInAdmin(email, password);
 
       if (!result.success) {
-        setErrorMessage(result.error || "Invalid administrator credentials.");
+        setErrorMessage(parseAppError(result.error, "Invalid administrator credentials or service unavailable."));
         setIsLoading(false);
         return;
       }
 
       router.push(redirectPath);
       router.refresh();
-    } catch {
-      setErrorMessage("Network error or connection timed out. Please try again.");
+    } catch (err: unknown) {
+      setErrorMessage(parseAppError(err, "Network error or connection timed out. Please try again."));
       setIsLoading(false);
     }
   };
@@ -81,16 +96,14 @@ export default function AdminLoginPage() {
           Sign in to manage your poster collection.
         </p>
 
-        {/* Unconfigured Notice */}
+        {/* System Service Notice */}
         {!configured && (
-          <div className="w-full mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-left">
-            <div className="flex items-start gap-2">
+          <div className="w-full mt-4 p-3.5 bg-amber-50/90 border border-amber-200/80 rounded-2xl text-left">
+            <div className="flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
-              <div className="text-xs text-amber-800">
-                <span className="font-semibold block">Supabase credentials needed</span>
-                Add <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
-                <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_SUPABASE_ANON_KEY</code> to your{" "}
-                <code className="bg-amber-100 px-1 rounded">.env.local</code> file.
+              <div className="text-xs text-amber-900 leading-relaxed">
+                <span className="font-semibold block text-amber-950 mb-0.5">Service Unavailable</span>
+                The administration service is currently offline or undergoing maintenance. Please contact your system administrator.
               </div>
             </div>
           </div>

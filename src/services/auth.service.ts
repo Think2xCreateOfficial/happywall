@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { parseAppError } from "@/lib/errorHandler";
 
 export interface AuthResponse {
   success: boolean;
@@ -12,10 +13,14 @@ export interface AuthResponse {
 
 export async function signInAdmin(email: string, password: string): Promise<AuthResponse> {
   if (!isSupabaseConfigured()) {
+    if (process.env.NODE_ENV === "development") {
+      console.warn(
+        "[HappyWalls Dev Notice] Administrator authentication service is unconfigured. Define NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local to enable Supabase Auth."
+      );
+    }
     return {
       success: false,
-      error:
-        "Supabase is not configured. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your .env.local file.",
+      error: "Authentication service is currently unavailable. Please contact the administrator or try again later.",
     };
   }
 
@@ -29,7 +34,7 @@ export async function signInAdmin(email: string, password: string): Promise<Auth
     if (authError) {
       return {
         success: false,
-        error: authError.message || "Invalid email or password",
+        error: parseAppError(authError, "Invalid email address or password. Please verify your credentials."),
       };
     }
 
@@ -106,11 +111,15 @@ export async function signInAdmin(email: string, password: string): Promise<Auth
 
     // Case 3: Database / RLS / Permission error (e.g. 42501)
     if (adminCheckError) {
-      console.error("Admin authorization lookup error:", adminCheckError);
-      // Do NOT destroy the user's valid session; return descriptive error
+      if (process.env.NODE_ENV === "development") {
+        console.error("Admin authorization lookup error:", adminCheckError);
+      }
       return {
         success: false,
-        error: `Database authorization error (${adminCheckError.code || "unknown"}): ${adminCheckError.message}. Please verify table permissions in Supabase.`,
+        error: parseAppError(
+          adminCheckError,
+          "Unable to verify administrator permissions. Please contact your system administrator."
+        ),
       };
     }
 
@@ -121,10 +130,12 @@ export async function signInAdmin(email: string, password: string): Promise<Auth
       error: "Access denied. Your account is not authorized as an administrator.",
     };
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Unexpected sign in failure";
+    if (process.env.NODE_ENV === "development") {
+      console.error("Authentication exception:", err);
+    }
     return {
       success: false,
-      error: message,
+      error: parseAppError(err, "An unexpected authentication error occurred. Please try again."),
     };
   }
 }
@@ -134,12 +145,11 @@ export async function signOutAdmin(): Promise<{ success: boolean; error?: string
     const supabase = createClient();
     const { error } = await supabase.auth.signOut();
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: parseAppError(error, "Failed to sign out. Please try again.") };
     }
     return { success: true };
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Sign out error";
-    return { success: false, error: message };
+    return { success: false, error: parseAppError(err, "Sign out error. Please try again.") };
   }
 }
 

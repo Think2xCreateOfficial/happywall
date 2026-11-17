@@ -98,10 +98,10 @@ export default function AdminDashboardPage() {
       }
 
       if (catResult.error) {
-        addToast(`Category notice: ${catResult.error}`, "info");
+        addToast(parseAppError(catResult.error, "Unable to load some categories."), "info");
       }
       if (postResult.error) {
-        addToast(`Poster notice: ${postResult.error}`, "info");
+        addToast(parseAppError(postResult.error, "Unable to load some posters."), "info");
       }
 
       setCategories(catResult.data);
