@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
             <div className="flex items-center gap-3">
               <Image
                 src="/happywall_logo.png"
-                alt="Happy Walls"
+                alt="Happy Wall"
                 width={150}
                 height={44}
                 className="h-9 w-auto object-contain"
@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-charcoal-surface border border-charcoal-border text-white/70 hover:text-brand-yellow hover:border-brand-yellow transition-colors"
-              aria-label="Happy Walls Instagram"
+              aria-label="Happy Wall Instagram"
             >
               <Instagram className="w-4 h-4" />
             </a>
@@ -62,7 +62,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar: Copyright & Location Note */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/40">
-          <p>© {new Date().getFullYear()} Happy Walls. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Happy Wall. All rights reserved.</p>
           <p className="text-center sm:text-right">
             Handcrafted with precision for walls with personality • Chennai, India
           </p>

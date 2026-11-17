@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { Eye, Plus, Check } from "lucide-react";
 import { Product } from "@/types/product.types";
 import { formatINR, cn } from "@/lib/utils";
-import { getDriveImageUrl } from "@/lib/drive";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { useCart } from "@/context/CartContext";
 
 interface ProductCardProps {
@@ -36,8 +35,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
         Maintains identical proportion and visual weight across mobile, tablet, and desktop
       */}
       <div className="relative aspect-[1414/2000] w-full bg-charcoal-surface overflow-hidden">
-        <Image
-          src={getDriveImageUrl(product.image)}
+        <SafeImage
+          src={product.image}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 300px"

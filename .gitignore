@@ -1,32 +1,60 @@
-# dependencies
+# Dependencies
 /node_modules
 /.pnp
 .pnp.js
+.pnpm-store/
 
-# testing
-/coverage
-
-# next.js
+# Next.js & Build Outputs
 /.next/
 /out/
+/build/
+/dist/
+.turbo/
+.vercel/
 
-# production
-/build
+# Testing & Coverage
+/coverage
 
-# misc
-.DS_Store
-*.pem
+# Environment & Secrets (NEVER push secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+!.env.example
 
-# debug
+# Supabase Local Migrations & Setup Scripts
+/supabase/
+/scripts/
+
+# Development Scratch Scripts & Temporary Scrapers
+/scratch/
+temp/
+tmp/
+
+# Logs & Debug
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# local env files
-.env*.local
+# System & OS Files
+.DS_Store
+Thumbs.db
+*.pem
 
-# typescript
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript
 *.tsbuildinfo
 next-env.d.ts
 

@@ -425,7 +425,7 @@ export const CustomPosterForm: React.FC = () => {
 
             <p className="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6 font-inter">
               Your custom poster details have been prepared for WhatsApp. <br />
-              <strong className="text-white font-semibold">Please remember to click &ldquo;Send&rdquo; in your WhatsApp chat</strong> to deliver your message to the Happy Walls design team.
+              <strong className="text-white font-semibold">Please remember to click &ldquo;Send&rdquo; in your WhatsApp chat</strong> to deliver your message to the Happy Wall design team.
             </p>
 
             <button

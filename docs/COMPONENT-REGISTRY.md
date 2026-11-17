@@ -1,7 +1,7 @@
-# Happy Walls — Component Registry
+# Happy Wall — Component Registry
 
 ## 1. Overview
-The Happy Walls user interface is built as an enterprise-grade set of atomic, single-responsibility, accessible React components. The table below registers every component, its location, interface contract, and responsibility.
+The Happy Wall user interface is built as an enterprise-grade set of atomic, single-responsibility, accessible React components. The table below registers every component, its location, interface contract, and responsibility.
 
 ---
 

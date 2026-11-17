@@ -1,4 +1,4 @@
-# Happy Walls — Design System Specification
+# Happy Wall — Design System Specification
 
 ## 1. Brand Identity & Color Tokens
 

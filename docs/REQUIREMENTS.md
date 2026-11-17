@@ -1,4 +1,4 @@
-# Happy Walls — Product Requirements Document (PRD)
+# Happy Wall — Product Requirements Document (PRD)
 
 ## 1. Functional Requirements
 
@@ -17,7 +17,7 @@
 
 ### 1.2 Hero Section — "Living Poster Gallery"
 - **Headline:** "YOUR WALLS. YOUR STORY." with "STORY." styled in vibrant Golden Yellow brush/script style.
-- **Sub-headline:** "Find the posters that match your personality. Give every wall a little more character with Happy Walls."
+- **Sub-headline:** "Find the posters that match your personality. Give every wall a little more character with Happy Wall."
 - **CTAs:**
   - Primary: "Explore Collections →" (Smooth scroll to `#collections`).
   - Secondary: "Create Your Own" (Smooth scroll to `#custom-posters`).

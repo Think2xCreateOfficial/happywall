@@ -1,7 +1,7 @@
-# Happy Walls — Data Flow Architecture
+# Happy Wall — Data Flow Architecture
 
 ## 1. Overview
-Happy Walls employs a uni-directional, deterministic data flow model. Business data (products, pricing, categories, addresses, sizes, and FAQs) resides in immutable, strongly-typed static repositories within `src/data/`. This eliminates runtime database overhead, delivers near-instant Time to First Byte (TTFB), and guarantees reliable static generation.
+Happy Wall employs a uni-directional, deterministic data flow model. Business data (products, pricing, categories, addresses, sizes, and FAQs) resides in immutable, strongly-typed static repositories within `src/data/`. This eliminates runtime database overhead, delivers near-instant Time to First Byte (TTFB), and guarantees reliable static generation.
 
 ---
 
@@ -15,7 +15,7 @@ sequenceDiagram
     participant Modal as Product Details Modal
     participant Form as Custom Poster Form
     participant WhatsApp as WhatsApp Click-to-Chat
-    participant Owner as Happy Walls Team (+91 73395 64538)
+    participant Owner as Happy Wall Team (+91 73395 64538)
 
     Customer->>Browser: Enters site & explores Hero / Collections
     Note over Browser: GSAP entrance & lazy-loaded WebP posters render

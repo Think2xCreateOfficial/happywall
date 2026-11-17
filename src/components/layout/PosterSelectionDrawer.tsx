@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, ShieldCheck } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/utils";
-import { getDriveImageUrl } from "@/lib/drive";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { buildWhatsAppUrl, formatCartOrderMessage } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/Button";
 
@@ -21,8 +20,6 @@ export const PosterSelectionDrawer: React.FC = () => {
     isCartOpen,
     setIsCartOpen,
   } = useCart();
-
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   // Prevent background scrolling while cart drawer is open
   useEffect(() => {
@@ -54,10 +51,6 @@ export const PosterSelectionDrawer: React.FC = () => {
     const message = formatCartOrderMessage(items, totalAmount);
     const url = buildWhatsAppUrl(message);
     window.open(url, "_blank", "noopener,noreferrer");
-  };
-
-  const handleImageError = (itemId: string) => {
-    setImageErrors((prev) => ({ ...prev, [itemId]: true }));
   };
 
   return (
@@ -125,9 +118,6 @@ export const PosterSelectionDrawer: React.FC = () => {
             </div>
           ) : (
             items.map((item) => {
-              const hasImageError = imageErrors[item.id];
-              const resolvedImageUrl = getDriveImageUrl(item.image);
-
               return (
                 <div
                   key={item.id}
@@ -135,23 +125,13 @@ export const PosterSelectionDrawer: React.FC = () => {
                 >
                   {/* Poster Thumbnail */}
                   <div className="relative w-16 h-22 aspect-[1414/2000] rounded-lg overflow-hidden shrink-0 border border-white/10 bg-charcoal-dark flex items-center justify-center">
-                    {!hasImageError && resolvedImageUrl ? (
-                      <Image
-                        src={resolvedImageUrl}
-                        alt={item.name}
-                        fill
-                        sizes="64px"
-                        className="object-cover"
-                        onError={() => handleImageError(item.id)}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-1 text-center bg-charcoal-dark text-brand-yellow">
-                        <ShoppingBag className="w-5 h-5 opacity-40 mb-1" />
-                        <span className="text-[8px] font-bold uppercase tracking-wider text-white/50">
-                          Poster
-                        </span>
-                      </div>
-                    )}
+                    <SafeImage
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
                   </div>
 
                   {/* Product Details */}

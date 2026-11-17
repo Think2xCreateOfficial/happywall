@@ -1,4 +1,4 @@
-# Happy Walls — Production Deployment Guide
+# Happy Wall — Production Deployment Guide
 
 ## 1. Prerequisites
 - Node.js `v18.17+` or `v20+` (Node 24 supported)

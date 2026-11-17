@@ -56,7 +56,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         <div className="flex items-center gap-3">
           <Image
             src="/happywall_logo.png"
-            alt="Happy Walls"
+            alt="Happy Wall"
             width={140}
             height={40}
             className="h-9 w-auto object-contain"
@@ -83,8 +83,8 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               href={item.href}
               onClick={onClose}
               className={`flex items-center justify-between text-xl font-manrope font-bold py-3 px-4 rounded-xl transition-all ${isActive
-                  ? "text-brand-yellow border-b-2 border-brand-yellow/30"
-                  : "text-white/80 hover:text-white hover:bg-white/5"
+                ? "text-brand-yellow border-b-2 border-brand-yellow/30"
+                : "text-white/80 hover:text-white hover:bg-white/5"
                 }`}
             >
               <span>{item.label}</span>

@@ -1,4 +1,4 @@
-# Happy Walls — Codebase Structure
+# Happy Wall — Codebase Structure
 
 ## 1. Directory Tree
 

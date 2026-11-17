@@ -36,7 +36,7 @@ export const CustomPosterSection: React.FC = () => {
             </h2>
 
             <p className="text-sm sm:text-base text-brand-muted font-inter leading-relaxed mb-8 max-w-lg">
-              Have a favorite digital artwork, anime still, gaming screenshot, or personal photograph? Happy Walls prints and frames custom orders from our Palavakkam studio in Chennai with zero visual loss.
+              Have a favorite digital artwork, anime still, gaming screenshot, or personal photograph? Happy Wall prints and frames custom orders from our Palavakkam studio in Chennai with zero visual loss.
             </p>
 
             {/* Studio Specifications & Trust Signals */}
@@ -101,7 +101,7 @@ export const CustomPosterSection: React.FC = () => {
               </div>
 
               <a
-                href={buildWhatsAppUrl("Hello Happy Walls! I have questions regarding custom poster printing and sizes.")}
+                href={buildWhatsAppUrl("Hello Happy Wall! I have questions regarding custom poster printing and sizes.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-charcoal-dark font-manrope font-extrabold text-[11px] transition-colors shrink-0"

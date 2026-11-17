@@ -1,11 +1,11 @@
 export const SITE_CONFIG = {
-  name: "Happy Walls",
-  legalName: "Happy Walls Posters",
+  name: "Happy Wall",
+  legalName: "Happy Wall Posters",
   tagline: "Posters. Personality. Perfectly Yours.",
   heroHeadlineMain: "YOUR WALLS.",
   heroHeadlineAccent: "YOUR STORY.",
-  heroSubheadline: "Find the posters that match your personality. Give every wall a little more character with Happy Walls.",
-  description: "Discover creative wall posters, aesthetic prints and custom wall art at Happy Walls, Palavakkam, Chennai. Explore collections and order directly through WhatsApp.",
+  heroSubheadline: "Find the posters that match your personality. Give every wall a little more character with Happy Wall.",
+  description: "Discover creative wall posters, aesthetic prints and custom wall art at Happy Wall, Palavakkam, Chennai. Explore collections and order directly through WhatsApp.",
   url: "https://happywall.think2xcreate.com",
   address: {
     street: "East Coast Road",

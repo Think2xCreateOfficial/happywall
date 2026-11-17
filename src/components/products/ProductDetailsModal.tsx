@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { X, Plus, Minus, Check, ShoppingBag } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { Product, PosterSize } from "@/types/product";
 import { formatINR, cn } from "@/lib/utils";
-import { getDriveImageUrl } from "@/lib/drive";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { buildWhatsAppUrl, formatProductOrderMessage } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/context/CartContext";
@@ -103,8 +102,8 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
 
         {/* Left: High-Resolution Artwork Preview */}
         <div className="relative md:w-1/2 aspect-[1414/2000] md:aspect-auto bg-charcoal-surface min-h-[300px]">
-          <Image
-            src={getDriveImageUrl(product.image)}
+          <SafeImage
+            src={product.image}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

@@ -1,7 +1,7 @@
-# Happy Walls — SEO, GEO & AEO Audit Report
+# Happy Wall — SEO, GEO & AEO Audit Report
 
 ## 1. Executive Summary
-This document provides an exhaustive verification of Search Engine Optimization (SEO), Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO) implementations across Happy Walls.
+This document provides an exhaustive verification of Search Engine Optimization (SEO), Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO) implementations across Happy Wall.
 
 - **Primary URL Target:** `https://happywall.think2xcreate.com`
 - **Location Target:** Palavakkam, Chennai – 600041, Tamil Nadu, India
@@ -14,11 +14,11 @@ This document provides an exhaustive verification of Search Engine Optimization 
 
 | Element | Implemented Value | Verification / Best Practice |
 | :--- | :--- | :--- |
-| **Title Tag** | `Happy Walls \| Wall Posters & Custom Poster Prints in Chennai` | 61 characters; contains brand, primary product keywords, and geographic location |
-| **Meta Description** | `Discover creative wall posters, aesthetic prints and custom wall art at Happy Walls, Palavakkam, Chennai. Explore collections and order directly through WhatsApp.` | 157 characters; concise, includes exact business locality and click-to-action intent |
+| **Title Tag** | `Happy Wall \| Wall Posters & Custom Poster Prints in Chennai` | 61 characters; contains brand, primary product keywords, and geographic location |
+| **Meta Description** | `Discover creative wall posters, aesthetic prints and custom wall art at Happy Wall, Palavakkam, Chennai. Explore collections and order directly through WhatsApp.` | 157 characters; concise, includes exact business locality and click-to-action intent |
 | **Canonical URL** | `https://happywall.think2xcreate.com/` | Standardized self-referential canonical |
 | **Robots Meta** | `index: true, follow: true, max-image-preview: large` | Search crawler friendly; allows rich snippet image indexing |
-| **Keywords** | `Happy Walls, Wall Posters Chennai, Custom Poster Prints, Palavakkam Wall Posters, Anime Posters Chennai, Aesthetic Room Decor, Framed Wall Art` | Targeted high-intent transactional & local search terms |
+| **Keywords** | `Happy Wall, Wall Posters Chennai, Custom Poster Prints, Palavakkam Wall Posters, Anime Posters Chennai, Aesthetic Room Decor, Framed Wall Art` | Targeted high-intent transactional & local search terms |
 
 ---
 
@@ -44,7 +44,7 @@ This document provides an exhaustive verification of Search Engine Optimization 
 ### 4.1 Schema 1: LocalBusiness
 - `@context`: `https://schema.org`
 - `@type`: `LocalBusiness`
-- `name`: `Happy Walls`
+- `name`: `Happy Wall`
 - `telephone`: `+91 73395 64538`
 - `address`:
   - `streetAddress`: `East Coast Road`
@@ -59,7 +59,7 @@ This document provides an exhaustive verification of Search Engine Optimization 
 ### 4.2 Schema 2: WebSite
 - `@context`: `https://schema.org`
 - `@type`: `WebSite`
-- `name`: `Happy Walls`
+- `name`: `Happy Wall`
 - `url`: `https://happywall.think2xcreate.com`
 
 ---
@@ -67,7 +67,7 @@ This document provides an exhaustive verification of Search Engine Optimization 
 ## 5. Social Sharing & Open Graph Protocols
 
 - **OpenGraph Type:** `website`
-- **OG Title:** `Happy Walls — Your Walls. Your Story.`
+- **OG Title:** `Happy Wall — Your Walls. Your Story.`
 - **OG Image:** `/images/hero/hero-gallery-cluster.webp` (1200 × 630 preview)
 - **Twitter Card:** `summary_large_image`
 - **Locale:** `en_IN`

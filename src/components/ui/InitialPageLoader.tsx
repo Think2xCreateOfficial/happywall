@@ -44,19 +44,18 @@ export const InitialPageLoader: React.FC = () => {
 
   return (
     <div
-      className={`${styles.loaderContainer} ${
-        fading ? "opacity-0 pointer-events-none" : "opacity-100"
-      }`}
+      className={`${styles.loaderContainer} ${fading ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
       aria-hidden={fading}
       role="status"
-      aria-label="Loading Happy Walls"
+      aria-label="Loading Happy Wall"
     >
       <div className={styles.loader} />
       <div className={styles.brandIdentifier} aria-hidden="true">
-        <span className={styles.brandTitle}>Happy Walls</span>
+        <span className={styles.brandTitle}>Happy Wall</span>
         <span className={styles.brandTagline}>Posters · Personality</span>
       </div>
-      <span className="sr-only">Loading Happy Walls...</span>
+      <span className="sr-only">Loading Happy Wall...</span>
     </div>
   );
 };

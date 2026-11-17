@@ -1,7 +1,7 @@
-# Happy Walls — Online Wall Poster Store
+# Happy Wall — Online Wall Poster Store
 
 > **Posters. Personality. Perfectly Yours.**  
-> A high-performance, single-page, WhatsApp-first digital showroom and wall art ordering platform for **Happy Walls**, Palavakkam, Chennai – 600041.
+> A high-performance, single-page, WhatsApp-first digital showroom and wall art ordering platform for **Happy Wall**, Palavakkam, Chennai – 600041.
 
 ---
 
@@ -122,7 +122,7 @@ Comprehensive architectural and QA documentation is maintained in [`docs/`](./do
 ---
 
 ## 📍 Business Information
-- **Brand:** Happy Walls
+- **Brand:** Happy Wall
 - **Location:** Palavakkam, Chennai – 600041, Tamil Nadu, India
 - **WhatsApp:** [+91 73395 64538](https://wa.me/917339564538)
 - **Instagram:** [@happy_walls_poster](https://www.instagram.com/happy_walls_poster/)

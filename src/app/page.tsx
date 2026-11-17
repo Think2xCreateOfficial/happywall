@@ -14,11 +14,15 @@ import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-charcoal-dark text-white selection:bg-brand-yellow selection:text-charcoal-dark flex flex-col relative">
-      <Header />
+      <ErrorBoundary fallbackTitle="Navigation Temporarily Unavailable">
+        <Header />
+      </ErrorBoundary>
       <ErrorBoundary fallbackTitle="Cart Temporarily Unavailable">
         <PosterSelectionDrawer />
       </ErrorBoundary>
-      <HeroSection />
+      <ErrorBoundary fallbackTitle="Hero Showcase Unavailable">
+        <HeroSection />
+      </ErrorBoundary>
       <ErrorBoundary fallbackTitle="Unable to load collections catalog">
         <CollectionsSection />
       </ErrorBoundary>
@@ -34,7 +38,9 @@ export default function HomePage() {
       <ErrorBoundary fallbackTitle="Custom poster studio unavailable">
         <CustomPosterSection />
       </ErrorBoundary>
-      <FAQSection />
+      <ErrorBoundary fallbackTitle="Help & FAQ Temporarily Unavailable">
+        <FAQSection />
+      </ErrorBoundary>
       <Footer />
     </main>
   );

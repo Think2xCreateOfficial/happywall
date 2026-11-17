@@ -1,12 +1,12 @@
-# Happy Walls — Project Overview
+# Happy Wall — Project Overview
 
 ## 1. Executive Summary
-**Happy Walls** is an online wall poster and aesthetic wall art business based in Palavakkam, Chennai – 600041. Operating as a direct-to-consumer digital brand without a physical storefront, Happy Walls bridges the gap between digital art discovery and physical wall transformations.
+**Happy Wall** is an online wall poster and aesthetic wall art business based in Palavakkam, Chennai – 600041. Operating as a direct-to-consumer digital brand without a physical storefront, Happy Wall bridges the gap between digital art discovery and physical wall transformations.
 
 The primary operational challenge faced by the business is handling high volumes of repetitive inquiries across Instagram and WhatsApp, where manually sending individual poster mockups, catalog sheets, and pricing messages causes friction and slows sales conversion.
 
 This project delivers a **high-conversion, single-page digital showroom and WhatsApp-first ordering website** that empowers customers to:
-- Discover the Happy Walls brand narrative and curated collections.
+- Discover the Happy Wall brand narrative and curated collections.
 - Visually explore trending categories (Anime, Supercars, Marvel, DC, Gaming, Football).
 - Visualize posters in authentic, beautifully lit room spaces.
 - Interact with a real-time Before & After wall transformation slider.
@@ -17,7 +17,7 @@ This project delivers a **high-conversion, single-page digital showroom and What
 ---
 
 ## 2. Business Identity & Verification Details
-- **Brand Name:** Happy Walls
+- **Brand Name:** Happy Wall
 - **Tagline:** Posters. Personality. Perfectly Yours. / Your Walls. Your Story.
 - **Physical Operation Base:** Palavakkam, Chennai – 600041, Tamil Nadu, India
 - **Primary Sales & Support Channel:** WhatsApp (`+91 73395 64538`)

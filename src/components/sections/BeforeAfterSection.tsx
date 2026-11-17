@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { InfinityGauntlet, InfinityGauntletHandle } from "@/components/transformation/InfinityGauntlet";
 import { SnapCanvas, SnapCanvasHandle } from "@/components/transformation/SnapCanvas";
 import { snapAudio } from "@/components/transformation/SnapAudio";
-import { getDriveImageUrl } from "@/lib/drive";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { cn } from "@/lib/utils";
 
 type TransformationState = "before" | "snapping" | "materializing" | "after" | "resetting";
@@ -18,7 +18,7 @@ interface WallPosterConfig {
   id: string;
   title: string;
   category: string;
-  image: string; // Google Drive ID or local path
+  image: string; // Supabase storage path or image URL
   leftPercent: number;
   topPercent: number;
   widthPercent: number;
@@ -32,7 +32,7 @@ const WALL_POSTERS: WallPosterConfig[] = [
     id: "wall-poster-left",
     title: "Demon Slayer: Tanjiro",
     category: "Anime",
-    image: "1vntvoT5PiVTkFJPlIgW5SQK1WAr6wf5l",
+    image: "posters/anime/tanjiro.webp",
     leftPercent: 36.5,
     topPercent: 18.5,
     widthPercent: 11.0,
@@ -43,7 +43,7 @@ const WALL_POSTERS: WallPosterConfig[] = [
     id: "wall-poster-main",
     title: "The Batman Split Triptych",
     category: "Split Poster",
-    image: "1OncBnP0G47_nZGmkvK2KxSyQfsBg6T2-",
+    image: "posters/split-poster/batman-split-full.webp",
     // Positioned strictly inside the physical empty frame on the wall
     leftPercent: 52.25,
     topPercent: 15.83,
@@ -55,7 +55,7 @@ const WALL_POSTERS: WallPosterConfig[] = [
     id: "wall-poster-right",
     title: "Cyberpunk Battlestation",
     category: "Games",
-    image: "12Rrc-qcaVcCLwT6aEnp6NzuoIFo6SaNG",
+    image: "posters/games/cyber-gaming-01.webp",
     leftPercent: 69.5,
     topPercent: 18.5,
     widthPercent: 11.0,
@@ -307,7 +307,7 @@ export const BeforeAfterSection: React.FC = () => {
           {/* LAYER 1: BASE ROOM BACKGROUND IMAGE (Warm Minimalist Living Room) */}
           <Image
             src="/images/transformations/empty-wall-living.jpg"
-            alt="Living room with empty wall waiting for Happy Walls transformation"
+            alt="Living room with empty wall waiting for Happy Wall transformation"
             fill
             sizes="(max-width: 1200px) 100vw, 1400px"
             className="object-cover object-center pointer-events-none"
@@ -351,8 +351,8 @@ export const BeforeAfterSection: React.FC = () => {
               >
                 {/* Poster Artwork Image */}
                 <div className="relative w-full h-full bg-charcoal-surface">
-                  <Image
-                    src={getDriveImageUrl(poster.image)}
+                  <SafeImage
+                    src={poster.image}
                     alt={`${poster.title} - ${poster.category}`}
                     fill
                     sizes="(max-width: 640px) 120px, 200px"

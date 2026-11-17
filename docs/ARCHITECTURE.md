@@ -1,7 +1,7 @@
-# Happy Walls — Frontend Architecture Specification
+# Happy Wall — Frontend Architecture Specification
 
 ## 1. Architectural Philosophy
-Following modern software engineering practices, Happy Walls is structured using a **Feature-Based Modular Architecture** built on **Next.js 14 App Router**.
+Following modern software engineering practices, Happy Wall is structured using a **Feature-Based Modular Architecture** built on **Next.js 14 App Router**.
 - **Server Components by Default:** Layout, static content, structural headings, and SEO metadata render on the server to maximize initial load performance (LCP) and eliminate client-side hydration overhead.
 - **Client Components at Leaf Nodes:** Interactivity is encapsulated strictly in dedicated client modules (e.g. `ProductCarousel`, `BeforeAfterSlider`, `CustomPosterForm`, `ProductDetailsModal`, `MobileNavigation`, `GSAPHero`).
 - **Separation of Concerns:** Business data (`src/data/*`), external integrations (`src/lib/whatsapp.ts`), animations (`src/animations/*`), and visual components (`src/components/*`) remain strictly decoupled.

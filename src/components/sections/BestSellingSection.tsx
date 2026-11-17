@@ -1,12 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "@/components/ui/Container";
 import { ProductCarousel } from "@/components/products/ProductCarousel";
 import { ProductDetailsModal } from "@/components/products/ProductDetailsModal";
-import { PRODUCTS } from "@/data/products";
-import { Product } from "@/types/product";
+import { Product, SizeOption } from "@/types/product";
 import { cn } from "@/lib/utils";
+import { getPosters } from "@/services/poster.service";
+import { PosterWithCategory } from "@/types/database.types";
+import {
+  INDIVIDUAL_POSTER_SIZES,
+  SPLIT_POSTER_SIZES,
+} from "@/data/products/product-catalog";
 
 const BEST_SELLING_TABS = [
   { id: "all", label: "All Favorites" },
@@ -15,13 +20,94 @@ const BEST_SELLING_TABS = [
   { id: "split", label: "Split Poster" },
 ];
 
+function mapPosterToProduct(poster: PosterWithCategory): Product {
+  const catName = poster.category?.name || "Anime";
+  const catSlug = poster.category?.slug?.toLowerCase() || "anime";
+  const isSplit = catSlug.includes("split");
+
+  const availableSizes: SizeOption[] =
+    poster.variants && poster.variants.length > 0
+      ? poster.variants.map((v) => ({
+          id: v.size_code,
+          name: v.variant_name,
+          dimensions: v.dimensions,
+          price: Number(v.price),
+          inclusions: v.inclusions || undefined,
+        }))
+      : isSplit
+      ? SPLIT_POSTER_SIZES
+      : INDIVIDUAL_POSTER_SIZES;
+
+  const minPrice =
+    availableSizes.length > 0
+      ? Math.min(...availableSizes.map((s) => s.price))
+      : Number(poster.price);
+
+  return {
+    id: poster.id,
+    slug: poster.slug,
+    name: poster.title,
+    category: catName,
+    description: poster.description || "Archival pigment print on 300 GSM matte paper.",
+    image: poster.image_path,
+    basePrice: minPrice,
+    availableSizes,
+    inclusions: isSplit ? "3 × A4 size posters" : "1 × Poster Print",
+    tag: isSplit ? "Signature Set" : "Best Seller",
+    isFeatured: true,
+    isBestSeller: true,
+  };
+}
+
 export const BestSellingSection: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeTab, setActiveTab] = useState<string>("all");
 
-  const filteredProducts = activeTab === "all"
-    ? PRODUCTS
-    : PRODUCTS.filter((p) => p.category.toLowerCase().includes(activeTab.toLowerCase()));
+  // Retrieve dynamically managed posters from Supabase Storage and Database
+  useEffect(() => {
+    let isMounted = true;
+    async function loadDynamicPosters() {
+      setIsLoading(true);
+      try {
+        // Query best-selling active posters directly from Supabase
+        let res = await getPosters({ includeInactive: false, isBestSelling: true });
+        
+        // If no posters are explicitly flagged as best sellers, query active posters
+        if (!res.data || res.data.length === 0) {
+          res = await getPosters({ includeInactive: false });
+        }
+
+        if (isMounted) {
+          if (res.data && res.data.length > 0) {
+            const dynamicProducts = res.data.map(mapPosterToProduct);
+            setProducts(dynamicProducts);
+          } else {
+            setProducts([]);
+          }
+        }
+      } catch (err) {
+        console.warn("Error loading dynamic best sellers from Supabase:", err);
+        if (isMounted) setProducts([]);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+    loadDynamicPosters();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const filteredProducts =
+    activeTab === "all"
+      ? products
+      : products.filter((p) => {
+          const cat = p.category.toLowerCase();
+          if (activeTab === "split") return cat.includes("split");
+          return cat.includes(activeTab.toLowerCase());
+        });
 
   return (
     <section
@@ -61,9 +147,14 @@ export const BestSellingSection: React.FC = () => {
         <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
           {BEST_SELLING_TABS.map((tab) => {
             const isSelected = activeTab === tab.id;
-            const count = tab.id === "all"
-              ? PRODUCTS.length
-              : PRODUCTS.filter((p) => p.category.toLowerCase().includes(tab.id.toLowerCase())).length;
+            const count =
+              tab.id === "all"
+                ? products.length
+                : products.filter((p) => {
+                    const cat = p.category.toLowerCase();
+                    if (tab.id === "split") return cat.includes("split");
+                    return cat.includes(tab.id.toLowerCase());
+                  }).length;
 
             return (
               <button
@@ -79,10 +170,14 @@ export const BestSellingSection: React.FC = () => {
                 aria-pressed={isSelected}
               >
                 <span>{tab.label}</span>
-                <span className={cn(
-                  "px-1.5 py-0.2 rounded-full text-[10px] font-mono",
-                  isSelected ? "bg-charcoal-dark/20 text-charcoal-dark" : "bg-white/10 text-white/60"
-                )}>
+                <span
+                  className={cn(
+                    "px-1.5 py-0.2 rounded-full text-[10px] font-mono",
+                    isSelected
+                      ? "bg-charcoal-dark/20 text-charcoal-dark font-bold"
+                      : "bg-white/10 text-white/60"
+                  )}
+                >
                   {count}
                 </span>
               </button>
@@ -90,11 +185,29 @@ export const BestSellingSection: React.FC = () => {
           })}
         </div>
 
-        {/* Carousel with strict 1,414 x 2,000 poster cards */}
-        <ProductCarousel
-          products={filteredProducts}
-          onOpenDetails={(product: Product) => setSelectedProduct(product)}
-        />
+        {/* Loading Skeleton */}
+        {isLoading ? (
+          <div className="py-16 flex flex-col items-center justify-center gap-3">
+            <div className="w-8 h-8 rounded-full border-2 border-brand-yellow border-t-transparent animate-spin" />
+            <p className="text-xs text-brand-muted font-mono tracking-wider uppercase">Loading Best Sellers...</p>
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          /* Clean Empty State */
+          <div className="py-16 text-center rounded-2xl bg-charcoal-card border border-charcoal-border p-8">
+            <p className="text-sm sm:text-base font-manrope font-bold text-white mb-1">
+              No Best Selling Posters in this category yet.
+            </p>
+            <p className="text-xs text-brand-muted max-w-md mx-auto">
+              Browse our complete catalog below to explore all available collections.
+            </p>
+          </div>
+        ) : (
+          /* Carousel with strict 1,414 x 2,000 poster cards */
+          <ProductCarousel
+            products={filteredProducts}
+            onOpenDetails={(product: Product) => setSelectedProduct(product)}
+          />
+        )}
       </Container>
 
       {/* Product Details Modal */}

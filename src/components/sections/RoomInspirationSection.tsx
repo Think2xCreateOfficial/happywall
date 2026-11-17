@@ -7,7 +7,7 @@ import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { Container } from "@/components/ui/Container";
 import { ROOM_ENVIRONMENTS, RoomHotspot } from "@/data/rooms";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { getDriveImageUrl } from "@/lib/drive";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { cn } from "@/lib/utils";
 
 export const RoomInspirationSection: React.FC = () => {
@@ -57,7 +57,7 @@ export const RoomInspirationSection: React.FC = () => {
             </h2>
 
             <p className="mt-2.5 text-xs sm:text-sm md:text-base text-brand-muted max-w-xl font-inter leading-relaxed">
-              Explore authentic room photographs styled with Happy Walls posters. Tap the numbered pins or frame buttons below to view sizing, details, and order directly on WhatsApp.
+              Explore authentic room photographs styled with Happy Wall posters. Tap the numbered pins or frame buttons below to view sizing, details, and order directly on WhatsApp.
             </p>
           </div>
 
@@ -180,8 +180,8 @@ export const RoomInspirationSection: React.FC = () => {
                       <div className="flex items-start gap-2.5 mb-2">
                         {hotspot.relatedImage && (
                           <div className="relative w-12 h-14 rounded-lg overflow-hidden border border-white/10 shrink-0 bg-charcoal-surface">
-                            <Image
-                              src={getDriveImageUrl(hotspot.relatedImage)}
+                            <SafeImage
+                              src={hotspot.relatedImage}
                               alt={hotspot.name}
                               fill
                               sizes="48px"

@@ -1,4 +1,4 @@
-# Happy Walls — Issue & Risk Register
+# Happy Wall — Issue & Risk Register
 
 ## 1. Risk & Defect Prevention Log
 

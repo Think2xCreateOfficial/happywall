@@ -1,4 +1,4 @@
-# Happy Walls — Performance & Core Web Vitals Audit
+# Happy Wall — Performance & Core Web Vitals Audit
 
 ## 1. Performance Goals & Budget
 

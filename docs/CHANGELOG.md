@@ -1,4 +1,4 @@
-# Happy Walls — Engineering Changelog
+# Happy Wall — Engineering Changelog
 
 ## [2.0.0] - 2026-11-11
 ### Major UI/UX Design Refinement & Frontend Enhancement
