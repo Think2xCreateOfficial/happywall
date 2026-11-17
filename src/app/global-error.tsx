@@ -51,16 +51,16 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           </div>
 
           <span className="text-[11px] font-bold text-[#F5B700] uppercase tracking-widest block mb-2">
-            System Notice
+            Something Went Wrong
           </span>
 
           <h1 className="text-2xl font-extrabold text-white mb-2">
-            Application Refresh Needed
+            Temporary Glitch Detected
           </h1>
 
           <p className="text-xs text-gray-400 mb-6 leading-relaxed">
-            The app encountered a temporary loading or synchronization issue.
-            Click below to reload and continue without interruption.
+            We encountered an unexpected issue while loading this page.
+            Click below to refresh and resume browsing.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
@@ -79,6 +79,17 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             >
               Reload
             </button>
+          </div>
+
+          <div className="mt-6 pt-5 border-t border-[#333]">
+            <a
+              href="https://wa.me/917339564538?text=Hi%20Happy%20Walls%20team%2C%20I%20encountered%20an%20issue%20on%20the%20website%20and%20need%20assistance."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[#F5B700] hover:underline"
+            >
+              Need help? Chat with our team on WhatsApp →
+            </a>
           </div>
         </div>
       </body>

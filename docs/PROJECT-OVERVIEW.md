@@ -11,7 +11,7 @@ This project delivers a **high-conversion, single-page digital showroom and What
 - Visualize posters in authentic, beautifully lit room spaces.
 - Interact with a real-time Before & After wall transformation slider.
 - Inspect best-selling posters with realistic frame mockups and transparent pricing (₹ 499 base).
-- Configure poster sizes (A5, A4, A3, A3+) and quantities in an interactive product modal.
+- Configure poster sizes (A6, A5, A4) and quantities in an interactive product modal.
 - Submit custom design inquiries or one-click purchase requests formatted directly into WhatsApp messages to **+91 73395 64538**.
 
 ---

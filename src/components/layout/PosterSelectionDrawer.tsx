@@ -143,10 +143,28 @@ export const PosterSelectionDrawer: React.FC = () => {
                       {item.name}
                     </h4>
 
-                    <div className="flex items-center gap-2 mt-1">
+                    <div className="flex items-center gap-2 mt-1 flex-wrap">
                       <span className="text-[10px] font-manrope font-extrabold px-2 py-0.5 rounded-md bg-brand-yellow/15 text-brand-yellow">
                         {item.size}
                       </span>
+                      {item.hasFrame ? (
+                        <span className="text-[10px] font-manrope font-bold px-1.5 py-0.5 rounded-md bg-brand-yellow/20 text-brand-yellow border border-brand-yellow/30">
+                          With Frame
+                        </span>
+                      ) : (item.size === "A4" || (typeof item.size === "string" && item.size.includes("A4"))) ? (
+                        <span className="text-[10px] text-brand-muted">
+                          Without Frame
+                        </span>
+                      ) : null}
+                      {item.hasFrame ? (
+                        <span className="text-[10px] font-manrope font-bold px-1.5 py-0.5 rounded-md bg-brand-yellow/20 text-brand-yellow border border-brand-yellow/30">
+                          With Frame (+₹210)
+                        </span>
+                      ) : (item.size === "A4" || (typeof item.size === "string" && item.size.includes("A4"))) ? (
+                        <span className="text-[10px] text-brand-muted">
+                          Without Frame
+                        </span>
+                      ) : null}
                       <span className="text-[10px] text-brand-muted truncate">
                         {item.dimensions}
                       </span>

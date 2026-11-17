@@ -20,7 +20,7 @@
 #### 3. Room Inspiration Customer Experience Section
 - Upgraded room inspiration section into an interactive explorer solving real customer arrangement problems.
 - 5 Realistic Room Environments:
-  1. Bedroom Inspiration (Gallery Trio - 3x A3 Vertical Alignment)
+  1. Bedroom Inspiration (Gallery Trio - 3x A4 Vertical Alignment)
   2. Gaming Room Inspiration (Battlestation 4-Piece Comic Gallery)
   3. Workspace / Desk Setup (Triptych Panoramic 3-Panel Continuous Setup)
   4. Living Room Inspiration (Over-Sofa Statement Large Scale Trio)

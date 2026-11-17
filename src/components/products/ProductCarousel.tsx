@@ -17,27 +17,38 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products, onOp
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Check scroll boundary status to dynamically update disabled navigation states
+  // Check scroll boundary status and compute exact active card index using DOM geometry
   const updateScrollBounds = useCallback(() => {
     const el = scrollContainerRef.current;
-    if (!el) return;
+    if (!el || products.length === 0) return;
 
     const { scrollLeft, scrollWidth, clientWidth } = el;
     setCanScrollLeft(scrollLeft > 10);
-    // 15px threshold to account for subpixel rounding
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 15);
+    const isAtEnd = scrollLeft >= scrollWidth - clientWidth - 15;
+    setCanScrollRight(!isAtEnd);
 
-    // Calculate approximate active card index for pagination indicators
-    if (products.length > 0) {
-      const cardWidth = el.firstElementChild
-        ? (el.firstElementChild as HTMLElement).offsetWidth + 16
-        : 280;
-      const index = Math.min(
-        products.length - 1,
-        Math.max(0, Math.round(scrollLeft / cardWidth))
-      );
-      setActiveIndex(index);
+    const children = Array.from(el.children) as HTMLElement[];
+    if (children.length === 0) return;
+
+    if (isAtEnd) {
+      setActiveIndex(children.length - 1);
+      return;
     }
+
+    // Determine which card is physically closest to the viewport start
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    children.forEach((child, idx) => {
+      const cardOffset = child.offsetLeft - el.offsetLeft;
+      const distance = Math.abs(cardOffset - scrollLeft);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = idx;
+      }
+    });
+
+    setActiveIndex(closestIndex);
   }, [products.length]);
 
   useEffect(() => {
@@ -54,33 +65,38 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products, onOp
     };
   }, [updateScrollBounds, products]);
 
-  // Smooth step scroll
+  // Smooth slide-to-slide navigation using exact child element geometry
+  const scrollToSlide = useCallback((index: number) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const children = Array.from(el.children) as HTMLElement[];
+    if (!children[index]) return;
+
+    const targetCard = children[index];
+    const targetLeft = targetCard.offsetLeft - el.offsetLeft;
+
+    el.scrollTo({
+      left: targetLeft,
+      behavior: "smooth",
+    });
+    setActiveIndex(index);
+  }, []);
+
+  // Directional step scroll linked directly to card indices
   const handleScroll = (direction: "left" | "right") => {
     const el = scrollContainerRef.current;
     if (!el) return;
 
-    const firstCard = el.firstElementChild as HTMLElement | null;
-    const cardStep = firstCard ? firstCard.offsetWidth + 20 : 300;
-    const scrollDistance = direction === "left" ? -cardStep : cardStep;
+    const children = Array.from(el.children) as HTMLElement[];
+    if (children.length === 0) return;
 
-    el.scrollBy({
-      left: scrollDistance,
-      behavior: "smooth",
-    });
-  };
+    const targetIndex =
+      direction === "left"
+        ? Math.max(0, activeIndex - 1)
+        : Math.min(children.length - 1, activeIndex + 1);
 
-  // Direct dot click navigation
-  const scrollToSlide = (index: number) => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-
-    const firstCard = el.firstElementChild as HTMLElement | null;
-    const cardStep = firstCard ? firstCard.offsetWidth + 20 : 300;
-
-    el.scrollTo({
-      left: index * cardStep,
-      behavior: "smooth",
-    });
+    scrollToSlide(targetIndex);
   };
 
   if (!products || products.length === 0) {
@@ -164,26 +180,28 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({ products, onOp
         </button>
 
         {/* Dynamic Pagination Indicator Dots */}
-        <div className="flex items-center gap-1.5 overflow-x-auto py-1 no-scrollbar">
-          {products.map((p, idx) => {
-            const isActive = idx === activeIndex;
-            return (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => scrollToSlide(idx)}
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  isActive
-                    ? "w-6 bg-brand-yellow shadow-glow-yellow"
-                    : "w-1.5 bg-white/20 hover:bg-white/40"
-                )}
-                aria-label={`Go to product ${idx + 1}: ${p.name}`}
-                aria-current={isActive}
-              />
-            );
-          })}
-        </div>
+        {products.length > 1 && (
+          <div className="flex items-center gap-1.5 overflow-x-auto py-1 no-scrollbar">
+            {products.map((p, idx) => {
+              const isActive = idx === activeIndex;
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => scrollToSlide(idx)}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    isActive
+                      ? "w-6 bg-brand-yellow shadow-glow-yellow"
+                      : "w-1.5 bg-white/20 hover:bg-white/40"
+                  )}
+                  aria-label={`Go to product ${idx + 1}: ${p.name}`}
+                  aria-current={isActive}
+                />
+              );
+            })}
+          </div>
+        )}
 
         {/* Mobile Right Arrow */}
         <button

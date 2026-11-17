@@ -73,7 +73,7 @@
   - Full Name (Required, minimum 2 characters)
   - Phone / WhatsApp Number (Required, 10-digit Indian mobile validation)
   - Email Address (Optional, standard email format validation if entered)
-  - Size Selection dropdown (`A5 (14.8 x 21 cm)`, `A4 (21 x 29.7 cm)`, `A3 (29.7 x 42 cm)`, `A3+ (32.9 x 48.3 cm)`)
+  - Size Selection dropdown (`A6 (10.5 x 14.8 cm)`, `A5 (14.8 x 21 cm)`, `A4 (21 x 29.7 cm)`)
   - Project Message / Vision (Required)
 - Client-side validation with real-time feedback
 - Submission Handler: Encodes user inputs into a structured WhatsApp message and opens WhatsApp Web / Mobile directly.
@@ -81,7 +81,7 @@
 ### 1.8 Product Details Modal
 - Accessible modal dialog (`role="dialog"`, `aria-modal="true"`)
 - Large high-resolution artwork view
-- Size picker (A5, A4, A3, A3+) with dynamic pricing updates
+- Size picker (A6, A5, A4) with finish selection and dynamic pricing updates
 - Quantity selector with increment/decrement (+ / -)
 - Instant order summary calculation
 - "Order via WhatsApp" button generating structured pre-filled order text

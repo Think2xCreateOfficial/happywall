@@ -5,9 +5,9 @@ export interface NavItem {
 
 export const NAVIGATION_ITEMS: NavItem[] = [
   { label: "Hero", href: "#hero" },
-  { label: "Collection", href: "#collections" },
-  { label: "Room Inspiration", href: "#room-inspiration" },
   { label: "Best Selling", href: "#best-sellers" },
+  { label: "Room Inspiration", href: "#room-inspiration" },
+  { label: "Collection", href: "#collections" },
   { label: "Contact", href: "#contact" },
   { label: "FAQ", href: "#faq" },
 ];

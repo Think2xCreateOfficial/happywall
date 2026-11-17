@@ -67,6 +67,6 @@ CMD ["npm", "run", "start"]
 2. Check browser console for zero runtime JavaScript exceptions.
 3. Verify all images load with valid WebP headers and without 404s.
 4. Click header WhatsApp button and verify URL resolves to `https://wa.me/917339564538`.
-5. Open Product Details Modal, select size A3, click "Order via WhatsApp", and verify prefilled message text.
+5. Open Product Details Modal, select size A4, click "Order via WhatsApp", and verify prefilled message text.
 6. Submit Custom Poster Form with sample values and verify WhatsApp redirection.
 

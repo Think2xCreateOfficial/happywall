@@ -26,40 +26,39 @@ interface WallPosterConfig {
   elevationShadow: string;
 }
 
-// 3 Curated Wall Posters properly mapped to the physical wall space in empty-wall-living.jpg
+// 3 Curated Wall Posters properly mapped to the physical A5, A4, and A6 frames in empty-wall-living.png (1672 × 941)
 const WALL_POSTERS: WallPosterConfig[] = [
   {
     id: "wall-poster-left",
-    title: "Demon Slayer: Tanjiro",
+    title: "Demon Slayer: Tanjiro (A5)",
     category: "Anime",
-    image: "posters/anime/tanjiro.webp",
-    leftPercent: 36.5,
-    topPercent: 18.5,
-    widthPercent: 11.0,
-    heightPercent: 20.0,
+    image: "/images/collections/tanjiro.webp",
+    leftPercent: 28.53,
+    topPercent: 19.55,
+    widthPercent: 11.96,
+    heightPercent: 29.33,
     elevationShadow: "shadow-[0_12px_24px_rgba(0,0,0,0.8)]",
   },
   {
     id: "wall-poster-main",
-    title: "The Batman Split Triptych",
-    category: "Split Poster",
-    image: "posters/split-poster/batman-split-full.webp",
-    // Positioned strictly inside the physical empty frame on the wall
-    leftPercent: 52.25,
-    topPercent: 15.83,
-    widthPercent: 14.35,
-    heightPercent: 25.74,
+    title: "Bleach: Ichigo Kurosaki (A4)",
+    category: "Anime",
+    image: "/images/collections/ichigo.webp",
+    leftPercent: 42.46,
+    topPercent: 5.31,
+    widthPercent: 18.54,
+    heightPercent: 44.42,
     elevationShadow: "shadow-[0_18px_36px_rgba(0,0,0,0.9)]",
   },
   {
     id: "wall-poster-right",
-    title: "Cyberpunk Battlestation",
-    category: "Games",
-    image: "posters/games/cyber-gaming-01.webp",
-    leftPercent: 69.5,
-    topPercent: 18.5,
-    widthPercent: 11.0,
-    heightPercent: 20.0,
+    title: "Death Note: Ryuk (A6)",
+    category: "Games / Anime",
+    image: "/images/collections/deathnote.webp",
+    leftPercent: 63.34,
+    topPercent: 20.83,
+    widthPercent: 10.65,
+    heightPercent: 27.42,
     elevationShadow: "shadow-[0_12px_24px_rgba(0,0,0,0.8)]",
   },
 ];
@@ -263,7 +262,7 @@ export const BeforeAfterSection: React.FC = () => {
 
             <p className="mt-2.5 text-xs sm:text-sm md:text-base text-brand-muted max-w-xl font-inter leading-relaxed">
               {state === "after"
-                ? "From a plain, forgotten wall to a personalized gallery sanctuary. Museum-grade archival pigment prints that transform your everyday living space."
+                ? "From a plain, forgotten wall to a personalized gallery sanctuary. Premium 270 GSM glossy photo sheets that bring rich colours and sharp details to your room."
                 : "Tap the Infinity Gauntlet hand in the center of the room to execute the cinematic snap and watch the empty wall transform."}
             </p>
           </div>
@@ -293,20 +292,20 @@ export const BeforeAfterSection: React.FC = () => {
 
         {/* 
           THE CINEMATIC ROOM SHOWCASE CONTAINER
-          - Layer 1: Background Room Image (16:9 aspect ratio)
-          - Layer 2: Empty Wall Cue
-          - Layer 3: Materializing Poster Frames
+          - Layer 1: Background Room Image (Exact 1672 × 941 native aspect ratio matching empty-wall-living.png)
+          - Layer 2: Empty Wall Cue (Centered on the focal A4 frame)
+          - Layer 3: Materializing A5, A4, and A6 Poster Frames
           - Layer 4: Cosmic Particle & Shockwave Canvas
           - Layer 5: The Interactive Infinity Gauntlet Hand (Center Stage)
           - Layer 6: After-State Badges
         */}
         <div
           ref={sceneRef}
-          className="relative w-full aspect-[16/12] md:aspect-[16/7] overflow-hidden border border-charcoal-border shadow-2xl bg-charcoal-surface select-none"
+          className="relative w-full aspect-[1672/941] overflow-hidden border border-charcoal-border shadow-2xl bg-charcoal-surface select-none rounded-xl sm:rounded-2xl"
         >
-          {/* LAYER 1: BASE ROOM BACKGROUND IMAGE (Warm Minimalist Living Room) */}
+          {/* LAYER 1: BASE ROOM BACKGROUND IMAGE (Warm Minimalist Living Room with A5, A4, A6 Frames) */}
           <Image
-            src="/images/transformations/empty-wall-living.jpg"
+            src="/images/transformations/empty-wall-living.png"
             alt="Living room with empty wall waiting for Happy Wall transformation"
             fill
             sizes="(max-width: 1200px) 100vw, 1400px"
@@ -326,7 +325,7 @@ export const BeforeAfterSection: React.FC = () => {
               }}
             >
               <span className="px-1.5 py-0.5 rounded bg-charcoal-dark/90 text-brand-yellow font-manrope font-black text-[8px] sm:text-[10px] uppercase tracking-wider shadow">
-                Blank Wall
+                Tap Gauntlet to Snap
               </span>
             </div>
           )}
@@ -355,7 +354,7 @@ export const BeforeAfterSection: React.FC = () => {
                     src={poster.image}
                     alt={`${poster.title} - ${poster.category}`}
                     fill
-                    sizes="(max-width: 640px) 120px, 200px"
+                    sizes="(max-width: 640px) 120px, 250px"
                     className="object-cover"
                   />
                   {/* Subtle gallery glass reflection glare */}
@@ -369,10 +368,10 @@ export const BeforeAfterSection: React.FC = () => {
               <div
                 className="snap-aura-glow absolute pointer-events-none -z-10 bg-brand-yellow/15 blur-2xl rounded-full"
                 style={{
-                  left: "32%",
-                  top: "12%",
+                  left: "26%",
+                  top: "4%",
                   width: "50%",
-                  height: "32%",
+                  height: "46%",
                 }}
               />
             )}
@@ -441,11 +440,11 @@ export const BeforeAfterSection: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full text-left">
                 <div className="flex items-center gap-2 text-xs text-white/80 font-inter">
                   <span className="w-2 h-2 rounded-full bg-brand-yellow shrink-0" />
-                  <span>Museum-Grade 300 GSM Matte</span>
+                  <span>Premium 270 GSM Glossy Photo Sheet</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-white/80 font-inter">
                   <span className="w-2 h-2 rounded-full bg-brand-yellow shrink-0" />
-                  <span>Fade-Resistant Pigment Inks</span>
+                  <span>Rich Colours & Sharp Details</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-white/80 font-inter">
                   <span className="w-2 h-2 rounded-full bg-brand-yellow shrink-0" />

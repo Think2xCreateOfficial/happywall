@@ -170,7 +170,17 @@ export const PosterDrawer: React.FC<PosterDrawerProps> = ({
         newlyUploadedStoragePath = uploadRes.storagePath || null;
       }
 
-      // 2. Call parent onSave
+      // 2. Enforce business rule: Frames are strictly available for A4 posters only
+      const sanitizedVariants = variants.map((v) => {
+        const isA4 = v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4");
+        return {
+          ...v,
+          frame_available: isA4 ? Boolean(v.frame_available ?? true) : false,
+          frame_price: isA4 && (v.frame_available ?? true) ? Number(v.frame_price ?? 210) : 0,
+        };
+      });
+
+      // 3. Call parent onSave
       const success = await onSave({
         title: title.trim(),
         description: description.trim() || undefined,
@@ -179,7 +189,7 @@ export const PosterDrawer: React.FC<PosterDrawerProps> = ({
         image_path: finalImagePath,
         is_active: isActive,
         is_best_selling: isBestSelling,
-        variants: variants.length > 0 ? variants : undefined,
+        variants: sanitizedVariants.length > 0 ? sanitizedVariants : undefined,
       });
 
       if (!success) {
@@ -447,6 +457,50 @@ export const PosterDrawer: React.FC<PosterDrawerProps> = ({
                           className="text-[11px] text-gray-600 bg-white px-2 py-1 rounded-md border border-gray-200 focus:outline-none focus:ring-1 focus:ring-[#F5B700]"
                         />
                       </div>
+
+                      {/* Frame Configuration: Strictly for A4 */}
+                      {(variant.size_code === "A4" || variant.variant_name.toLowerCase().includes("a4")) ? (
+                        <div className="pt-2 border-t border-gray-200/60 bg-amber-50/60 p-2 rounded-lg mt-1">
+                          <div className="flex items-center justify-between">
+                            <label className="flex items-center gap-2 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={variant.frame_available ?? true}
+                                onChange={(e) =>
+                                  handleUpdateVariant(idx, "frame_available", e.target.checked)
+                                }
+                                className="w-3.5 h-3.5 rounded text-[#F5B700] focus:ring-[#F5B700] border-gray-300"
+                              />
+                              <span className="text-[11px] font-bold text-gray-800">
+                                Optional Frame (A4 Only)
+                              </span>
+                            </label>
+
+                            {(variant.frame_available ?? true) && (
+                              <div className="flex items-center gap-1 text-[11px]">
+                                <span className="text-gray-500 font-medium">Add-on: ₹</span>
+                                <input
+                                  type="number"
+                                  min="0"
+                                  step="1"
+                                  value={variant.frame_price ?? 210}
+                                  onChange={(e) =>
+                                    handleUpdateVariant(idx, "frame_price", Number(e.target.value))
+                                  }
+                                  className="w-14 text-[11px] font-bold text-gray-900 bg-white px-1.5 py-0.5 rounded border border-gray-200 text-right focus:outline-none focus:ring-1 focus:ring-[#F5B700]"
+                                />
+                                <span className="text-amber-800 font-bold ml-1">
+                                  = ₹{Number(variant.price || 0) + Number(variant.frame_price ?? 210)}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="pt-1 text-[10px] text-gray-400 italic">
+                          Frame add-on disabled (available strictly for A4 size)
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

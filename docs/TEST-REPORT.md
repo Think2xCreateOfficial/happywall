@@ -48,7 +48,7 @@
 - [x] **Heading Typography:** Bold, compact modern sans-serif with tight letter spacing (`font-manrope font-extrabold tracking-tight`).
 - [x] **Price Presentation:** Base price (₹ 499) displayed alongside strike-through original price (₹ 799) with "Save ₹300" pill badge.
 - [x] **Quick Add Button:** `+` icon on card adds poster directly to selection cart and opens drawer with instantaneous visual feedback (`✓`).
-- [x] **Product Details Modal:** Opens detailed modal with A5–A3+ size selector, quantity stepper, dynamic price calculation, and direct WhatsApp order button.
+- [x] **Product Details Modal:** Opens detailed modal with A6–A4 size selector, finish selection, quantity stepper, dynamic price calculation, and direct WhatsApp order button.
 
 ### 2.5 Dedicated Before & After Wall Transformation
 - [x] **Position:** Positioned **immediately after Best Selling**.

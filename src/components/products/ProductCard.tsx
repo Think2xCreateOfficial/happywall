@@ -79,7 +79,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
               {formatINR(product.basePrice)}
             </span>
             <span className="text-[10px] text-brand-muted font-medium">
-              {product.inclusions || "300 GSM Archival Matte"}
+              {product.inclusions || "270 GSM Glossy Photo Sheet"}
             </span>
           </div>
 

@@ -142,11 +142,22 @@ export const PosterTable: React.FC<PosterTableProps> = ({
 
                       {/* Price */}
                       <td className="py-3.5 px-4 font-semibold text-gray-900">
-                        {poster.variants && poster.variants.length > 1 ? (
-                          <span>From {formatINR(displayPrice)}</span>
-                        ) : (
-                          <span>{formatINR(poster.price)}</span>
-                        )}
+                        <div>
+                          {poster.variants && poster.variants.length > 1 ? (
+                            <span>From {formatINR(displayPrice)}</span>
+                          ) : (
+                            <span>{formatINR(poster.price)}</span>
+                          )}
+                          {poster.variants?.some(
+                            (v) =>
+                              (v.size_code === "A4" || v.variant_name.includes("A4")) &&
+                              (v as unknown as { frame_available?: boolean }).frame_available
+                          ) && (
+                            <span className="block text-[10px] text-amber-700 font-normal">
+                              A4 Frame: +₹210
+                            </span>
+                          )}
+                        </div>
                       </td>
 
                       {/* Status */}

@@ -7,7 +7,7 @@ export const COLLECTIONS: CategoryCollection[] = [
     slug: "anime",
     title: "Anime",
     subtitle: "Shonen & Aesthetic Art",
-    description: "Vibrant high-contrast fine art prints featuring Demon Slayer, Naruto, Bleach, Death Note, and classic shonen heroes on 300 GSM archival paper.",
+    description: "Vibrant fine art prints featuring Demon Slayer, Naruto, Bleach, Death Note, and classic shonen heroes on premium 270 GSM glossy photo sheet.",
     image: "categories/anime/anime.webp",
     iconName: "Flame",
     badge: "Trending",

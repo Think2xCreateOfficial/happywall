@@ -17,6 +17,7 @@ interface ProductDetailsModalProps {
 
 export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ product, onClose }) => {
   const [selectedSizeId, setSelectedSizeId] = useState<PosterSize>("A4");
+  const [hasFrame, setHasFrame] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(1);
   const [customerNote, setCustomerNote] = useState<string>("");
   const [isAdded, setIsAdded] = useState<boolean>(false);
@@ -26,6 +27,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
     if (product) {
       document.body.style.overflow = "hidden";
       setSelectedSizeId(product.availableSizes[0]?.id || "A4");
+      setHasFrame(false);
       setQuantity(1);
       setCustomerNote("");
       setIsAdded(false);
@@ -52,11 +54,23 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
 
   const activeSize =
     product.availableSizes.find((s) => s.id === selectedSizeId) || product.availableSizes[0];
-  const unitPrice = activeSize.price;
+
+  // Business rule: Frame option is strictly for A4 posters only
+  const isA4 = activeSize.id === "A4" || activeSize.id.toLowerCase().includes("a4");
+  const frameAddonPrice = isA4 && hasFrame ? 210 : 0;
+  const unitPrice = activeSize.price + frameAddonPrice;
   const totalPrice = unitPrice * quantity;
 
+  const handleSizeSelect = (sizeId: PosterSize) => {
+    setSelectedSizeId(sizeId);
+    // If selecting A5 or A6, strictly reset frame option
+    if (sizeId !== "A4" && !sizeId.toLowerCase().includes("a4")) {
+      setHasFrame(false);
+    }
+  };
+
   const handleAddToCart = () => {
-    addItem(product, activeSize.id, quantity);
+    addItem(product, activeSize.id, quantity, isA4 ? hasFrame : false);
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);
@@ -72,6 +86,9 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
       dimensions: activeSize.dimensions,
       quantity,
       totalPrice,
+      hasFrame: isA4 ? hasFrame : false,
+      basePrice: activeSize.price,
+      framePrice: isA4 && hasFrame ? 210 : 0,
       customerNote: customerNote.trim() || undefined,
     });
 
@@ -137,27 +154,40 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
               {product.description}
             </p>
 
+            {/* Product Material Specification */}
+            <div className="mb-4 p-3 rounded-xl bg-charcoal-surface border border-charcoal-border">
+              <div className="flex items-center gap-2 text-xs text-brand-yellow font-manrope font-bold mb-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
+                <span>Premium 270 GSM Glossy Photo Sheet</span>
+              </div>
+              <p className="text-[11px] text-brand-muted font-inter leading-relaxed">
+                Printed on premium 270 GSM glossy photo sheets to deliver rich colours, sharp details, and a beautiful glossy finish for your walls.
+              </p>
+            </div>
+
             {/* Inclusions badge if applicable */}
             {(product.inclusions || activeSize.inclusions) && (
               <div className="mb-5 px-3 py-2 rounded-xl bg-brand-yellow/10 border border-brand-yellow/30 text-xs text-brand-yellow font-manrope font-bold flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
-                <span>Included: {product.inclusions || activeSize.inclusions}</span>
+                <span>
+                  Included: {isA4 && hasFrame ? "1 × A4 Poster Print + Premium Frame" : (product.inclusions || activeSize.inclusions)}
+                </span>
               </div>
             )}
 
             {/* Size Selector */}
-            <div className="mb-6">
+            <div className="mb-5">
               <label className="text-xs font-manrope font-bold text-white/90 uppercase tracking-wider block mb-2.5">
                 Select Option / Size:
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {product.availableSizes.map((size) => {
                   const isSelected = size.id === selectedSizeId;
                   return (
                     <button
                       key={size.id}
                       type="button"
-                      onClick={() => setSelectedSizeId(size.id)}
+                      onClick={() => handleSizeSelect(size.id)}
                       className={cn(
                         "p-2.5 rounded-xl border text-left transition-all relative flex flex-col justify-between",
                         isSelected
@@ -167,14 +197,14 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
                     >
                       <div className="flex items-center justify-between w-full">
                         <span className="font-manrope font-extrabold text-xs text-white">
-                          {size.name || size.id}
+                          {size.name ? size.name.split(" ")[0] : size.id}
                         </span>
                         <span className="text-xs font-manrope font-bold text-brand-yellow">
                           {formatINR(size.price)}
                         </span>
                       </div>
-                      <span className="text-[10px] text-brand-muted mt-1">
-                        {size.inclusions || size.dimensions}
+                      <span className="text-[10px] text-brand-muted mt-1 truncate">
+                        {size.dimensions}
                       </span>
                       {isSelected && (
                         <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-brand-yellow" />
@@ -184,6 +214,134 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
                 })}
               </div>
             </div>
+
+            {/* A4 Optional Frame Selector (Only for A4) */}
+            {isA4 && (
+              <div className="mb-5 p-3 rounded-2xl bg-charcoal-surface border border-charcoal-border animate-in fade-in duration-200">
+                <label className="text-xs font-manrope font-extrabold text-white uppercase tracking-wider block mb-2">
+                  Choose your A4 poster finish:
+                </label>
+                <div className="grid grid-cols-2 gap-2.5">
+                  {/* Without Frame Option */}
+                  <button
+                    type="button"
+                    onClick={() => setHasFrame(false)}
+                    className={cn(
+                      "p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer",
+                      !hasFrame
+                        ? "border-brand-yellow bg-brand-yellow/10 shadow-sm ring-1 ring-brand-yellow/50"
+                        : "border-charcoal-border bg-charcoal-card hover:border-white/20"
+                    )}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <span className="font-manrope font-extrabold text-xs text-white">
+                        Without Frame
+                      </span>
+                      <span className="text-xs font-manrope font-bold text-brand-yellow">
+                        ₹39
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-brand-muted mt-1">
+                      Poster only
+                    </span>
+                    {!hasFrame && (
+                      <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-brand-yellow" />
+                    )}
+                  </button>
+
+                  {/* With Frame Option */}
+                  <button
+                    type="button"
+                    onClick={() => setHasFrame(true)}
+                    className={cn(
+                      "p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer",
+                      hasFrame
+                        ? "border-brand-yellow bg-brand-yellow/10 shadow-sm ring-1 ring-brand-yellow/50"
+                        : "border-charcoal-border bg-charcoal-card hover:border-white/20"
+                    )}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <span className="font-manrope font-extrabold text-xs text-white">
+                        With Frame
+                      </span>
+                      <span className="text-xs font-manrope font-bold text-brand-yellow">
+                        ₹249
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-brand-muted mt-1">
+                      Poster + Frame
+                    </span>
+                    {hasFrame && (
+                      <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-brand-yellow" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* A4 Optional Frame Selector (Only for A4) */}
+            {isA4 && (
+              <div className="mb-5 p-3 rounded-2xl bg-charcoal-surface border border-charcoal-border animate-in fade-in duration-200">
+                <label className="text-xs font-manrope font-extrabold text-white uppercase tracking-wider block mb-2">
+                  Choose your A4 poster finish:
+                </label>
+                <div className="grid grid-cols-2 gap-2.5">
+                  {/* Without Frame Option */}
+                  <button
+                    type="button"
+                    onClick={() => setHasFrame(false)}
+                    className={cn(
+                      "p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer",
+                      !hasFrame
+                        ? "border-brand-yellow bg-brand-yellow/10 shadow-sm ring-1 ring-brand-yellow/50"
+                        : "border-charcoal-border bg-charcoal-card hover:border-white/20"
+                    )}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <span className="font-manrope font-extrabold text-xs text-white">
+                        Without Frame
+                      </span>
+                      <span className="text-xs font-manrope font-bold text-brand-yellow">
+                        ₹39
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-brand-muted mt-1">
+                      Poster only
+                    </span>
+                    {!hasFrame && (
+                      <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-brand-yellow" />
+                    )}
+                  </button>
+
+                  {/* With Frame Option */}
+                  <button
+                    type="button"
+                    onClick={() => setHasFrame(true)}
+                    className={cn(
+                      "p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer",
+                      hasFrame
+                        ? "border-brand-yellow bg-brand-yellow/10 shadow-sm ring-1 ring-brand-yellow/50"
+                        : "border-charcoal-border bg-charcoal-card hover:border-white/20"
+                    )}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <span className="font-manrope font-extrabold text-xs text-white">
+                        With Frame
+                      </span>
+                      <span className="text-xs font-manrope font-bold text-brand-yellow">
+                        ₹249
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-brand-muted mt-1">
+                      Poster + Frame
+                    </span>
+                    {hasFrame && (
+                      <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-brand-yellow" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Quantity Selector & Live Total */}
             <div className="flex items-center justify-between gap-4 mb-6 p-3 rounded-xl bg-charcoal-surface border border-charcoal-border">

@@ -29,21 +29,43 @@ export function formatGeneralInquiryMessage(): string {
  * Formats a specific single-product order inquiry.
  */
 export function formatProductOrderMessage(order: ProductOrderEnquiry): string {
+  const isA4 = order.size === "A4" || order.size.includes("A4");
   const unitPrice = Math.round(order.totalPrice / Math.max(1, order.quantity));
-  return [
+
+  const detailsLines: string[] = [
     `HAPPY WALLS – PRODUCT ENQUIRY 🖼️`,
     `----------------------------------------`,
     `Product: ${order.productName}`,
     `Size: ${order.size} (${order.dimensions})`,
-    `Price: ₹${unitPrice}`,
+  ];
+
+  if (isA4) {
+    if (order.hasFrame) {
+      detailsLines.push(
+        `Finish: With Frame`,
+        `Poster Price: ₹${order.basePrice || 39}`,
+        `Frame Price: ₹${order.framePrice || 210}`,
+        `Unit Total: ₹${unitPrice}`
+      );
+    } else {
+      detailsLines.push(
+        `Finish: Without Frame`,
+        `Unit Price: ₹${unitPrice}`
+      );
+    }
+  } else {
+    detailsLines.push(`Unit Price: ₹${unitPrice}`);
+  }
+
+  detailsLines.push(
     `Quantity: ${order.quantity}`,
     `Subtotal: ₹${order.totalPrice}`,
-    order.customerNote ? `Note: ${order.customerNote}` : '',
+    order.customerNote ? `Note: ${order.customerNote}` : "",
     `----------------------------------------`,
-    `Hello Happy Wall team! Could you please share the next steps for placing this order?`,
-  ]
-    .filter(Boolean)
-    .join('\n');
+    `Hello Happy Wall team! Could you please share the next steps for placing this order?`
+  );
+
+  return detailsLines.filter(Boolean).join("\n");
 }
 
 /**
@@ -52,19 +74,40 @@ export function formatProductOrderMessage(order: ProductOrderEnquiry): string {
 export function formatCartOrderMessage(items: CartItem[], totalAmount: number): string {
   const itemList = items
     .map((item, idx) => {
+      const isA4 = item.size === "A4" || (typeof item.size === "string" && item.size.includes("A4"));
       const lines = [
         `${idx + 1}. *${item.name}*`,
         `   Size: ${item.size}`,
-        `   Price: ₹${item.price}`,
-        `   Quantity: ${item.quantity}`,
       ];
+
+      if (isA4) {
+        if (item.hasFrame) {
+          lines.push(
+            `   Finish: With Frame`,
+            `   Poster Price: ₹${item.basePrice || 39}`,
+            `   Frame Price: ₹${item.framePrice || 210}`,
+            `   Unit Total: ₹${item.price}`
+          );
+        } else {
+          lines.push(
+            `   Finish: Without Frame`,
+            `   Unit Price: ₹${item.price}`
+          );
+        }
+      } else {
+        lines.push(`   Unit Price: ₹${item.price}`);
+      }
+
       if (item.inclusions) {
         lines.push(`   Includes: ${item.inclusions}`);
       }
-      lines.push(`   Subtotal: ₹${item.price * item.quantity}`);
-      return lines.join('\n');
+      lines.push(
+        `   Quantity: ${item.quantity}`,
+        `   Subtotal: ₹${item.price * item.quantity}`
+      );
+      return lines.join("\n");
     })
-    .join('\n\n');
+    .join("\n\n");
 
   return [
     `HAPPY WALLS – ORDER ENQUIRY 🖼️`,
@@ -76,8 +119,8 @@ export function formatCartOrderMessage(items: CartItem[], totalAmount: number): 
     `----------------------------------------`,
     `Cart Subtotal: ₹${totalAmount}`,
     `----------------------------------------`,
-    `Hello Happy Wall team! I would like to enquire about these products. Please share the next steps for placing my order.`,
-  ].join('\n');
+    `Hello Happy Wall team! I would like to place this order. Please share the payment and dispatch details.`,
+  ].join("\n");
 }
 
 /**

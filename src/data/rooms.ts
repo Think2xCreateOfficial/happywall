@@ -43,7 +43,7 @@ export const ROOM_ENVIRONMENTS: RoomEnvironment[] = [
         category: "Split Poster",
         size: "3 × A4 Triptych Set",
         priceText: "Set: ₹109 (3 × A4)",
-        description: "Left segment of the continuous 3-panel Batman triptych, printed on 300 GSM matte paper with fade-resistant pigment inks.",
+        description: "Left segment of the continuous 3-panel Batman triptych, printed on premium 270 GSM glossy photo sheet to deliver rich colours and sharp details.",
         relatedImage: "/images/hero/batman-split-1.webp",
         actionText: "Order 3-Panel Set",
         whatsappMessage: "Hello Happy Wall! I saw the *Bedroom 3-Panel Split Triptych* inspiration. I would like to order the complete 3-panel set (₹109).",

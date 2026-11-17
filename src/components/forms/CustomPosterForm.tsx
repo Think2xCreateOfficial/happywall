@@ -43,7 +43,7 @@ export const CustomPosterForm: React.FC = () => {
     phone: "",
     city: "",
     posterType: "Anime" as CustomPosterType,
-    posterSize: "A3" as CustomPosterSizeChoice,
+    posterSize: "A4" as CustomPosterSizeChoice,
     quantity: 1,
     budgetRange: "₹500 – ₹1,000",
     additionalRequirements: "",

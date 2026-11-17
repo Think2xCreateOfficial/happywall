@@ -24,9 +24,10 @@ sequenceDiagram
         Note over Browser,Modal: Best-Selling Product Flow
         Customer->>Browser: Clicks "Quick View & Order" on "Minimal Quote Poster"
         Browser->>Modal: Opens Modal with Product details
-        Customer->>Modal: Selects size: A3 Standard (₹ 499)
+        Customer->>Modal: Selects size: A4 Standard (₹ 39)
+        Customer->>Modal: Selects Finish: With Frame (₹ 249)
         Customer->>Modal: Adjusts quantity: 2
-        Note over Modal: Dynamic recalculation: Total = ₹ 998
+        Note over Modal: Dynamic recalculation: Total = ₹ 498
         Customer->>Modal: Clicks "Order via WhatsApp"
         Modal->>WhatsApp: Launches wa.me with formatted order payload
     end
@@ -34,7 +35,7 @@ sequenceDiagram
     rect rgb(35, 35, 35)
         Note over Browser,Form: Custom Poster Booking Flow
         Customer->>Browser: Scrolls to "Book Your Custom Poster"
-        Customer->>Form: Enters Name, WhatsApp No, Size (A3+), and Art Description
+        Customer->>Form: Enters Name, WhatsApp No, Size (A4), and Art Description
         Form->>Form: Validates Indian 10-digit number & required fields
         Customer->>Form: Clicks "Send via WhatsApp →"
         Form->>WhatsApp: Launches wa.me with custom booking requirements
@@ -54,9 +55,10 @@ sequenceDiagram
 ----------------------------------------
 📌 *Product:* Minimal Quote Poster
 🆔 *Item ID:* hw-quote-02
-📐 *Size Selected:* A3 (29.7 × 42 cm)
+📐 *Size Selected:* A4 (21 × 29.7 cm)
+🖼️ *Finish:* With Frame
 🔢 *Quantity:* 2
-💰 *Estimated Total:* ₹998
+💰 *Estimated Total:* ₹498
 ----------------------------------------
 Could you please confirm availability and provide payment details (UPI/GPay)? Thank you!
 ```
@@ -68,7 +70,7 @@ Could you please confirm availability and provide payment details (UPI/GPay)? Th
 👤 *Customer Name:* Rahul Sharma
 📱 *WhatsApp / Phone:* 9876543210
 ✉️ *Email:* rahul@example.com
-📐 *Preferred Size:* A3+
+📐 *Preferred Size:* A4 Standard Size
 📝 *Design Vision / Message:*
 "I want a high-resolution print of a custom cyberpunk synthwave skyline for my gaming setup."
 ----------------------------------------

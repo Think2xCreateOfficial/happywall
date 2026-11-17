@@ -13,7 +13,7 @@ export const FAQS: FAQItem[] = [
     category: "collections",
     categoryLabel: "Poster Collections",
     question: "Where can I buy wall posters online in Chennai?",
-    answer: "You can buy premium wall posters online in Chennai directly from Happy Wall, based in Palavakkam, Chennai (600041). We craft museum-grade wall art printed on 300 GSM archival matte paper and coordinate orders seamlessly via WhatsApp with swift delivery across Chennai and Tamil Nadu.",
+    answer: "You can buy premium wall posters online in Chennai directly from Happy Wall, based in Palavakkam, Chennai (600041). We craft wall art printed on premium 270 GSM glossy photo sheets to deliver rich colours and sharp details, and coordinate orders seamlessly via WhatsApp with swift delivery across Chennai and Tamil Nadu.",
   },
   {
     id: "faq-types-available",
@@ -50,14 +50,14 @@ export const FAQS: FAQItem[] = [
     category: "custom",
     categoryLabel: "Custom Posters",
     question: "Can I print my own poster design?",
-    answer: "Yes, you can print your own personal digital illustrations, photography, or high-res graphic designs. Share your artwork with our team on WhatsApp, and we will inspect file resolution, DPI, and color calibration free of charge before printing on 300 GSM archival matte paper.",
+    answer: "Yes, you can print your own personal digital illustrations, photography, or high-res graphic designs. Share your artwork with our team on WhatsApp, and we will inspect file resolution, DPI, and color calibration free of charge before printing on premium 270 GSM glossy photo sheets.",
   },
   {
     id: "faq-sizes-available",
     category: "custom",
     categoryLabel: "Custom Posters",
     question: "What poster sizes and sets are available at Happy Wall?",
-    answer: "Happy Wall offers individual posters in A4 size (₹39), A5 size (₹19), and A6 size (₹9), alongside our 3-panel Split Poster Sets (3 × A4 size posters for ₹109), Polarized Customized Photo Sets with Spotify (15 photos for ₹99), and complete Custom Poster + Frame Combos (₹249).",
+    answer: "Happy Wall offers individual posters in A4 size (₹39 without frame, or ₹249 with optional frame add-on), A5 size (₹19), and A6 size (₹9), alongside our 3-panel Split Poster Sets (3 × A4 size posters for ₹109), Polarized Customized Photo Sets with Spotify (15 photos for ₹99), and complete Custom Poster + Frame Combos (₹249).",
   },
   {
     id: "faq-room-poster-advice",
@@ -103,14 +103,14 @@ export const FAQS: FAQItem[] = [
     category: "support",
     categoryLabel: "Product & Support",
     question: "How do I choose the right poster for my bedroom?",
-    answer: "For bedrooms, choose calming color palettes and soothing art subjects—such as sunset anime silhouettes, minimal typography, or warm aesthetic prints. A horizontal 3-panel split poster or an A3/A4 symmetrical pair mounted above the headboard creates an inviting, balanced atmosphere.",
+    answer: "For bedrooms, choose calming color palettes and soothing art subjects—such as sunset anime silhouettes, minimal typography, or warm aesthetic prints. A horizontal 3-panel split poster or an A4 symmetrical pair mounted above the headboard creates an inviting, balanced atmosphere.",
   },
   {
     id: "faq-gallery-wall",
     category: "support",
     categoryLabel: "Product & Support",
     question: "How can I create a poster gallery wall?",
-    answer: "To create an eye-catching gallery wall, anchor the arrangement with one larger focal poster (e.g. A3 or A3+) at eye level, surrounded by two to three smaller complementary A4 prints. Maintain consistent 2 to 3-inch spacing between frames to ensure a cohesive, professional aesthetic.",
+    answer: "To create an eye-catching gallery wall, anchor the arrangement with one larger focal poster (e.g. A4) at eye level, surrounded by two to three smaller complementary A5 or A6 prints. Maintain consistent 2 to 3-inch spacing between frames to ensure a cohesive, professional aesthetic.",
   },
   {
     id: "faq-bulk-orders",

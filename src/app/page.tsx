@@ -24,13 +24,13 @@ export default function HomePage() {
         <HeroSection />
       </ErrorBoundary>
       <ErrorBoundary fallbackTitle="Unable to load collections catalog">
-        <CollectionsSection />
+        <BestSellingSection />
       </ErrorBoundary>
       <ErrorBoundary fallbackTitle="Unable to load room inspiration gallery">
         <RoomInspirationSection />
       </ErrorBoundary>
       <ErrorBoundary fallbackTitle="Unable to load best sellers">
-        <BestSellingSection />
+        <CollectionsSection />
       </ErrorBoundary>
       <ErrorBoundary fallbackTitle="Wall transformation unavailable">
         <BeforeAfterSection />

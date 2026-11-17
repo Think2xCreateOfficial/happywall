@@ -130,6 +130,8 @@ export interface Database {
           inclusions: string | null;
           is_active: boolean;
           display_order: number;
+          frame_available?: boolean;
+          frame_price?: number;
           created_at: string;
           updated_at: string;
         };
@@ -143,6 +145,8 @@ export interface Database {
           inclusions?: string | null;
           is_active?: boolean;
           display_order?: number;
+          frame_available?: boolean;
+          frame_price?: number;
           created_at?: string;
           updated_at?: string;
         };
@@ -156,6 +160,8 @@ export interface Database {
           inclusions?: string | null;
           is_active?: boolean;
           display_order?: number;
+          frame_available?: boolean;
+          frame_price?: number;
           created_at?: string;
           updated_at?: string;
         };

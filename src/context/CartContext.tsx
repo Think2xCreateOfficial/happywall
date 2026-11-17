@@ -18,6 +18,9 @@ export interface CartItem {
   quantity: number;
   inclusions?: string;
   whatsappMessage?: string;
+  hasFrame?: boolean;
+  framePrice?: number;
+  basePrice?: number;
 }
 
 interface CartContextType {
@@ -25,7 +28,8 @@ interface CartContextType {
   addItem: (
     itemOrProduct: Product | PosterCollectionItem,
     size?: PosterSize | string,
-    quantity?: number
+    quantity?: number,
+    hasFrame?: boolean
   ) => void;
   removeItem: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
@@ -82,7 +86,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     (
       itemOrProduct: Product | PosterCollectionItem,
       sizeChoice?: PosterSize | string,
-      qtyToAdd: number = 1
+      qtyToAdd: number = 1,
+      hasFrameChoice: boolean = false
     ) => {
       if (!itemOrProduct || !itemOrProduct.id) {
         console.error("Happy Wall: Invalid product provided to addItem.");
@@ -130,7 +135,22 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         whatsappMessage = col.whatsappMessage;
       }
 
-      const cartItemId = `${productId}-${size.replace(/\s+/g, "_")}`;
+      // Frame option business rule: STRICTLY for A4 posters only
+      const isA4 = size === "A4" || size.toLowerCase().includes("a4");
+      const hasFrame = isA4 ? Boolean(hasFrameChoice) : false;
+      const basePrice = unitPrice;
+      const framePrice = hasFrame ? 210 : 0;
+      const finalUnitPrice = basePrice + framePrice;
+
+      const itemInclusions = hasFrame
+        ? inclusions
+          ? `${inclusions} + Frame`
+          : "1 × A4 Poster Print + Frame"
+        : inclusions;
+
+      const cartItemId = hasFrame
+        ? `${productId}-${size.replace(/\s+/g, "_")}-framed`
+        : `${productId}-${size.replace(/\s+/g, "_")}`;
 
       setItems((prevItems) => {
         const existingIndex = prevItems.findIndex((item) => item.id === cartItemId);
@@ -154,10 +174,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
             image,
             size,
             dimensions,
-            price: unitPrice,
+            price: finalUnitPrice,
             quantity,
-            inclusions,
+            inclusions: itemInclusions,
             whatsappMessage,
+            hasFrame,
+            framePrice,
+            basePrice,
           },
         ];
       });

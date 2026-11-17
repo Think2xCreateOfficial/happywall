@@ -114,7 +114,7 @@ export const SplitPosterDisplay: React.FC = () => {
                   PANEL 0{index + 1}
                 </span>
                 <span className="text-[7px] sm:text-[8px] text-white/10 mt-0.5 tracking-wider">
-                  ARCHIVAL MATTE
+                  270 GSM GLOSSY
                 </span>
               </div>
 
@@ -173,10 +173,10 @@ export const SplitPosterDisplay: React.FC = () => {
                       {BATMAN_SPLIT_POSTER.panelCaptions[index]}
                     </p>
                     <p className="text-[8px] sm:text-[9px] text-white/80 mt-0.5 line-clamp-1">
-                      300 GSM Archival Matte · 2px Precision Split
+                      270 GSM Glossy Photo Sheet · 2px Precision Split
                     </p>
                     <div className="mt-1 flex items-center justify-between text-[7px] sm:text-[8px] text-white/60 font-semibold border-t border-charcoal-border pt-0.5">
-                      <span>A5 · A4 · A3 · A3+</span>
+                      <span>A4 · A5 · A6</span>
                       <span className="text-brand-yellow font-bold">₹ 499 Base</span>
                     </div>
                   </div>

@@ -66,8 +66,6 @@ export function validateCustomPosterForm(data: {
     "A6",
     "A5",
     "A4",
-    "A3",
-    "A2",
     "Split Set (3 × A4)",
     "15 Photos Set",
     "Custom Size",

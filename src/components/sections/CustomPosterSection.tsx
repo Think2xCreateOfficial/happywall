@@ -47,10 +47,10 @@ export const CustomPosterSection: React.FC = () => {
                 </div>
                 <div>
                   <span className="font-manrope font-bold text-white block text-sm">
-                    300 GSM Archival Matte Paper
+                    270 GSM High Quality Glossy Photo Sheet
                   </span>
                   <span className="text-xs text-brand-muted leading-relaxed">
-                    Museum-grade paper that absorbs reflections and enhances dark contrast under ambient lighting.
+                    Printed on premium 270 GSM glossy photo sheets to deliver rich colours, sharp details, and a beautiful glossy finish for your walls.
                   </span>
                 </div>
               </div>

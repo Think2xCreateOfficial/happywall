@@ -143,7 +143,7 @@ export const CollectionsSection: React.FC = () => {
             </h2>
 
             <p className="mt-2 text-xs sm:text-sm md:text-base text-brand-muted max-w-xl font-inter leading-relaxed">
-              Archival 300 GSM matte pigment prints. Curated Anime icons, Gaming battlestation artwork, and 3-piece continuous panoramic split triptychs.
+              Premium 270 GSM glossy photo sheets. Curated Anime icons, Gaming battlestation artwork, and 3-piece continuous panoramic split triptychs.
             </p>
           </div>
 
@@ -205,40 +205,6 @@ export const CollectionsSection: React.FC = () => {
             </div>
           )}
         </div>
-
-        {/* Active Category Spotlight Header (when a specific category is active) */}
-        {activeCategoryRecord && (
-          <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-charcoal-card border border-charcoal-border flex items-center gap-4 sm:gap-5 animate-in fade-in duration-300">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 bg-charcoal-surface border border-white/10 shadow-md">
-              <SafeImage
-                src={activeCategoryRecord.image_path}
-                alt={activeCategoryRecord.name}
-                fill
-                sizes="(max-width: 640px) 56px, 64px"
-                className="object-cover"
-              />
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 mb-0.5">
-                <span className="text-[10px] font-manrope font-extrabold uppercase tracking-widest text-brand-yellow">
-                  Curated Collection
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
-                <span className="text-[11px] text-white/50 font-mono">
-                  {filteredPosters.length} {filteredPosters.length === 1 ? "design" : "designs"} available
-                </span>
-              </div>
-              <h3 className="text-base sm:text-lg font-manrope font-extrabold text-white truncate">
-                {activeCategoryRecord.name} Collection
-              </h3>
-              {activeCategoryRecord.description && (
-                <p className="text-xs sm:text-sm text-brand-muted font-inter line-clamp-1 mt-0.5">
-                  {activeCategoryRecord.description}
-                </p>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* Loading State */}
         {isLoading ? (

@@ -14,8 +14,6 @@ export type CustomPosterSizeChoice =
   | 'A6'
   | 'A5'
   | 'A4'
-  | 'A3'
-  | 'A2'
   | 'Split Set (3 × A4)'
   | '15 Photos Set'
   | 'Custom Size'
@@ -39,5 +37,9 @@ export interface ProductOrderEnquiry {
   dimensions: string;
   quantity: number;
   totalPrice: number;
+  hasFrame?: boolean;
+  basePrice?: number;
+  framePrice?: number;
+  finish?: string;
   customerNote?: string;
 }

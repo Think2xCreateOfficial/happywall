@@ -2,8 +2,6 @@ export type PosterSize =
   | 'A6'
   | 'A5'
   | 'A4'
-  | 'A3'
-  | 'A3+'
   | 'Split Set'
   | 'Photo Set'
   | 'Frame Combo'
@@ -15,6 +13,8 @@ export interface SizeOption {
   dimensions: string;
   price: number;
   inclusions?: string;
+  frameAvailable?: boolean;
+  framePrice?: number;
 }
 
 export type ProductCategory =

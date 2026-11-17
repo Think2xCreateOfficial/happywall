@@ -20,6 +20,8 @@ export interface PosterVariantInput {
   inclusions?: string | null;
   is_active?: boolean;
   display_order?: number;
+  frame_available?: boolean;
+  frame_price?: number;
 }
 
 export interface PosterInput {
@@ -44,6 +46,8 @@ export const DEFAULT_VARIANT_PRESETS: PosterVariantInput[] = [
     inclusions: "1 × A6 Poster Print",
     is_active: true,
     display_order: 1,
+    frame_available: false,
+    frame_price: 0,
   },
   {
     variant_name: "A5 Compact Size",
@@ -53,6 +57,8 @@ export const DEFAULT_VARIANT_PRESETS: PosterVariantInput[] = [
     inclusions: "1 × A5 Poster Print",
     is_active: true,
     display_order: 2,
+    frame_available: false,
+    frame_price: 0,
   },
   {
     variant_name: "A4 Standard Size",
@@ -62,6 +68,8 @@ export const DEFAULT_VARIANT_PRESETS: PosterVariantInput[] = [
     inclusions: "1 × A4 Poster Print",
     is_active: true,
     display_order: 3,
+    frame_available: true,
+    frame_price: 210,
   },
 ];
 
@@ -439,23 +447,43 @@ export async function createPoster(
 
     // Save variants if provided
     if (input.variants && input.variants.length > 0 && posterData?.id) {
-      const variantsToInsert = input.variants.map((v, idx) => ({
-        poster_id: posterData.id,
-        variant_name: v.variant_name,
-        size_code: v.size_code,
-        dimensions: v.dimensions,
-        price: v.price,
-        inclusions: v.inclusions || null,
-        is_active: v.is_active ?? true,
-        display_order: v.display_order ?? idx + 1,
-      }));
+      const variantsToInsert = input.variants.map((v, idx) => {
+        const isA4 = v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4");
+        return {
+          poster_id: posterData.id,
+          variant_name: v.variant_name,
+          size_code: v.size_code,
+          dimensions: v.dimensions,
+          price: v.price,
+          inclusions: v.inclusions || null,
+          is_active: v.is_active ?? true,
+          display_order: v.display_order ?? idx + 1,
+          frame_available: isA4 ? (v.frame_available ?? true) : false,
+          frame_price: isA4 && (v.frame_available ?? true) ? (v.frame_price || 210) : 0,
+        };
+      });
 
       const { error: variantError } = await supabase
         .from("poster_variants")
         .insert(variantsToInsert);
 
       if (variantError) {
-        console.warn("Could not insert variants (migration might be pending):", variantError.message);
+        if (variantError.code === "42703" || variantError.message?.includes("frame_")) {
+          // If frame columns not yet migrated in database, retry with core fields
+          const fallback = variantsToInsert.map((item) => ({
+            poster_id: item.poster_id,
+            variant_name: item.variant_name,
+            size_code: item.size_code,
+            dimensions: item.dimensions,
+            price: item.price,
+            inclusions: item.inclusions,
+            is_active: item.is_active,
+            display_order: item.display_order,
+          }));
+          await supabase.from("poster_variants").insert(fallback);
+        } else {
+          console.warn("Could not insert variants (migration might be pending):", variantError.message);
+        }
       }
     }
 
@@ -537,18 +565,36 @@ export async function updatePoster(
         .eq("poster_id", id);
 
       if (!delError && input.variants.length > 0) {
-        const variantsToInsert = input.variants.map((v, idx) => ({
-          poster_id: id,
-          variant_name: v.variant_name,
-          size_code: v.size_code,
-          dimensions: v.dimensions,
-          price: v.price,
-          inclusions: v.inclusions || null,
-          is_active: v.is_active ?? true,
-          display_order: v.display_order ?? idx + 1,
-        }));
+        const variantsToInsert = input.variants.map((v, idx) => {
+          const isA4 = v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4");
+          return {
+            poster_id: id,
+            variant_name: v.variant_name,
+            size_code: v.size_code,
+            dimensions: v.dimensions,
+            price: v.price,
+            inclusions: v.inclusions || null,
+            is_active: v.is_active ?? true,
+            display_order: v.display_order ?? idx + 1,
+            frame_available: isA4 ? (v.frame_available ?? true) : false,
+            frame_price: isA4 && (v.frame_available ?? true) ? (v.frame_price || 210) : 0,
+          };
+        });
 
-        await supabase.from("poster_variants").insert(variantsToInsert);
+        const { error: insError } = await supabase.from("poster_variants").insert(variantsToInsert);
+        if (insError && (insError.code === "42703" || insError.message?.includes("frame_"))) {
+          const fallback = variantsToInsert.map((item) => ({
+            poster_id: item.poster_id,
+            variant_name: item.variant_name,
+            size_code: item.size_code,
+            dimensions: item.dimensions,
+            price: item.price,
+            inclusions: item.inclusions,
+            is_active: item.is_active,
+            display_order: item.display_order,
+          }));
+          await supabase.from("poster_variants").insert(fallback);
+        }
       }
     }
 

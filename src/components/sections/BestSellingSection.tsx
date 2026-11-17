@@ -33,6 +33,14 @@ function mapPosterToProduct(poster: PosterWithCategory): Product {
           dimensions: v.dimensions,
           price: Number(v.price),
           inclusions: v.inclusions || undefined,
+          frameAvailable:
+            v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4")
+              ? Boolean((v as unknown as { frame_available?: boolean }).frame_available ?? true)
+              : false,
+          framePrice:
+            v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4")
+              ? Number((v as unknown as { frame_price?: number }).frame_price || 210)
+              : 0,
         }))
       : isSplit
       ? SPLIT_POSTER_SIZES
@@ -48,7 +56,7 @@ function mapPosterToProduct(poster: PosterWithCategory): Product {
     slug: poster.slug,
     name: poster.title,
     category: catName,
-    description: poster.description || "Archival pigment print on 300 GSM matte paper.",
+    description: poster.description || "High-resolution print on premium 270 GSM glossy photo sheet.",
     image: poster.image_path,
     basePrice: minPrice,
     availableSizes,
@@ -130,7 +138,7 @@ export const BestSellingSection: React.FC = () => {
             </h2>
 
             <p className="mt-3 text-sm sm:text-base text-brand-muted max-w-xl font-inter leading-relaxed">
-              Our highest-rated customer favorites across Anime, Gaming, and Split Posters. Printed in authentic 1,414 × 2,000 proportion on 300 GSM archival matte paper.
+              Our highest-rated customer favorites across Anime, Gaming, and Split Posters. Printed in authentic 1,414 × 2,000 proportion on premium 270 GSM glossy photo sheets.
             </p>
           </div>
 
