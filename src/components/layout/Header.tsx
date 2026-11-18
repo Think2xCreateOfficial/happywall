@@ -71,15 +71,15 @@ export const Header: React.FC = () => {
             isScrolled && "bg-charcoal-dark/95 border-brand-yellow/30 shadow-glow-yellow/10"
           )}
         >
-          {/* Left: Happy Wall Logo (Official Image Logo) */}
+          {/* Left: Happy Walls Logo (Official Image Logo) */}
           <a
             href="#hero"
             className="flex items-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow rounded-full py-0.5 px-1"
-            aria-label="Happy Wall Homepage"
+            aria-label="Happy Walls Homepage"
           >
             <Image
               src="/happywall_logo.png"
-              alt="Happy Wall"
+              alt="Happy Walls"
               width={160}
               height={44}
               priority

@@ -37,17 +37,19 @@ const BUDGET_OPTIONS = [
   "Need Recommendation / Flexible",
 ];
 
+const INITIAL_FORM_DATA = {
+  customerName: "",
+  phone: "",
+  city: "",
+  posterType: "" as unknown as CustomPosterType,
+  posterSize: "" as unknown as CustomPosterSizeChoice,
+  quantity: 1,
+  budgetRange: "",
+  additionalRequirements: "",
+};
+
 export const CustomPosterForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    customerName: "",
-    phone: "",
-    city: "",
-    posterType: "Anime" as CustomPosterType,
-    posterSize: "A4" as CustomPosterSizeChoice,
-    quantity: 1,
-    budgetRange: "₹500 – ₹1,000",
-    additionalRequirements: "",
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const [errors, setErrors] = useState<FormValidationErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,6 +115,10 @@ export const CustomPosterForm: React.FC = () => {
 
     setShowSuccessModal(true);
     setIsSubmitting(false);
+
+    // Clear and reset form fields after submission
+    setFormData(INITIAL_FORM_DATA);
+    setErrors({});
   };
 
   return (
@@ -270,6 +276,9 @@ export const CustomPosterForm: React.FC = () => {
                     : "border-charcoal-border focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow"
                 )}
               >
+                <option value="" disabled className="bg-charcoal-dark text-white/50">
+                  -- Select Poster Category / Type --
+                </option>
                 {POSTER_TYPE_OPTIONS.map((type) => (
                   <option key={type} value={type} className="bg-charcoal-dark text-white">
                     {type}
@@ -301,6 +310,9 @@ export const CustomPosterForm: React.FC = () => {
                     : "border-charcoal-border focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow"
                 )}
               >
+                <option value="" disabled className="bg-charcoal-dark text-white/50">
+                  -- Select Preferred Size --
+                </option>
                 {POSTER_SIZE_OPTIONS.map((size) => (
                   <option key={size.id} value={size.id} className="bg-charcoal-dark text-white">
                     {size.label} ({size.details})
@@ -368,6 +380,9 @@ export const CustomPosterForm: React.FC = () => {
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 rounded-xl bg-charcoal-surface border border-charcoal-border text-sm text-white focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow transition-all appearance-none cursor-pointer"
               >
+                <option value="" className="bg-charcoal-dark text-white/50">
+                  -- Select Budget Range (Optional) --
+                </option>
                 {BUDGET_OPTIONS.map((opt) => (
                   <option key={opt} value={opt} className="bg-charcoal-dark text-white">
                     {opt}
@@ -425,7 +440,7 @@ export const CustomPosterForm: React.FC = () => {
 
             <p className="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6 font-inter">
               Your custom poster details have been prepared for WhatsApp. <br />
-              <strong className="text-white font-semibold">Please remember to click &ldquo;Send&rdquo; in your WhatsApp chat</strong> to deliver your message to the Happy Wall design team.
+              <strong className="text-white font-semibold">Please remember to click &ldquo;Send&rdquo; in your WhatsApp chat</strong> to deliver your message to the Happy Walls design team.
             </p>
 
             <button

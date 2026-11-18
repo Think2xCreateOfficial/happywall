@@ -306,7 +306,7 @@ export const BeforeAfterSection: React.FC = () => {
           {/* LAYER 1: BASE ROOM BACKGROUND IMAGE (Warm Minimalist Living Room with A5, A4, A6 Frames) */}
           <Image
             src="/images/transformations/empty-wall-living.png"
-            alt="Living room with empty wall waiting for Happy Wall transformation"
+            alt="Living room with empty wall waiting for Happy Walls transformation"
             fill
             sizes="(max-width: 1200px) 100vw, 1400px"
             className="object-cover object-center pointer-events-none"

@@ -12,7 +12,7 @@ export const COLLECTIONS: CategoryCollection[] = [
     iconName: "Flame",
     badge: "Trending",
     featuredCount: "A4 ₹39 · A5 ₹19 · A6 ₹9",
-    whatsappMessage: "Hello Happy Wall! I would like to explore your *Anime Poster Collection* catalog.",
+    whatsappMessage: "Hello Happy Walls! I would like to explore your *Anime Poster Collection* catalog.",
   },
   {
     id: "games",
@@ -24,7 +24,7 @@ export const COLLECTIONS: CategoryCollection[] = [
     iconName: "Gamepad2",
     badge: "Popular",
     featuredCount: "A4 ₹39 · A5 ₹19 · A6 ₹9",
-    whatsappMessage: "Hello Happy Wall! I would love to see your *Gaming & Battlestation Poster* catalog and available sizes.",
+    whatsappMessage: "Hello Happy Walls! I would love to see your *Gaming & Battlestation Poster* catalog and available sizes.",
   },
   {
     id: "split-poster",
@@ -36,7 +36,7 @@ export const COLLECTIONS: CategoryCollection[] = [
     iconName: "Layers",
     badge: "Signature",
     featuredCount: "3 × A4 Set · ₹109",
-    whatsappMessage: "Hello Happy Wall! I am interested in your *Split Poster (3-Panel Triptych)* collections. Could you share details and pricing?",
+    whatsappMessage: "Hello Happy Walls! I am interested in your *Split Poster (3-Panel Triptych)* collections. Could you share details and pricing?",
   },
 ];
 
@@ -53,7 +53,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I want to order the *Anime Icon Collection 01* poster.",
+    whatsappMessage: "Hello Happy Walls! I want to order the *Anime Icon Collection 01* poster.",
   },
   {
     id: "hw-anime-02",
@@ -66,7 +66,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I am interested in the *Anime Icon Collection 02* poster.",
+    whatsappMessage: "Hello Happy Walls! I am interested in the *Anime Icon Collection 02* poster.",
   },
   {
     id: "hw-anime-03",
@@ -79,7 +79,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I want to order *Anime Icon Collection 03*.",
+    whatsappMessage: "Hello Happy Walls! I want to order *Anime Icon Collection 03*.",
   },
   {
     id: "hw-anime-04",
@@ -92,7 +92,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I would like to order the *Anime Icon Collection 04* wall poster.",
+    whatsappMessage: "Hello Happy Walls! I would like to order the *Anime Icon Collection 04* wall poster.",
   },
   {
     id: "hw-anime-05",
@@ -105,7 +105,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I am interested in ordering the *Gojo Blue* poster.",
+    whatsappMessage: "Hello Happy Walls! I am interested in ordering the *Gojo Blue* poster.",
   },
   {
     id: "hw-anime-06",
@@ -118,7 +118,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I want to order the *Stay Curious* poster.",
+    whatsappMessage: "Hello Happy Walls! I want to order the *Stay Curious* poster.",
   },
 
   // --- GAMES POSTERS (A4 ₹39, A5 ₹19, A6 ₹9) ---
@@ -133,7 +133,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I want to enquire about the *Battlestation Cyber Gaming 01* poster for my desk setup.",
+    whatsappMessage: "Hello Happy Walls! I want to enquire about the *Battlestation Cyber Gaming 01* poster for my desk setup.",
   },
   {
     id: "hw-games-02",
@@ -146,7 +146,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! I am interested in the *Battlestation Cyber Gaming 02* poster.",
+    whatsappMessage: "Hello Happy Walls! I am interested in the *Battlestation Cyber Gaming 02* poster.",
   },
   {
     id: "hw-games-03",
@@ -159,7 +159,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "A4: ₹39 | A5: ₹19 | A6: ₹9",
     price: CLIENT_PRICING.A4_POSTER,
     inclusions: "1 × A4 size poster",
-    whatsappMessage: "Hello Happy Wall! Please share details on *Pixel World* poster.",
+    whatsappMessage: "Hello Happy Walls! Please share details on *Pixel World* poster.",
   },
 
   // --- SPLIT POSTERS (Set of 3 × A4: ₹109) ---
@@ -174,7 +174,7 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "Includes: 3 × A4 size posters",
     price: CLIENT_PRICING.SPLIT_POSTER_SET,
     inclusions: "3 × A4 size posters",
-    whatsappMessage: "Hello Happy Wall! I want to order the *Continuous Triptych Set 01 (Split Poster)* with 3 × A4 posters.",
+    whatsappMessage: "Hello Happy Walls! I want to order the *Continuous Triptych Set 01 (Split Poster)* with 3 × A4 posters.",
   },
   {
     id: "hw-split-02",
@@ -187,6 +187,6 @@ export const COLLECTION_POSTERS: PosterCollectionItem[] = [
     sizeText: "Includes: 3 × A4 size posters",
     price: CLIENT_PRICING.SPLIT_POSTER_SET,
     inclusions: "3 × A4 size posters",
-    whatsappMessage: "Hello Happy Wall! I am interested in the *Midnight Split (Split Poster)*.",
+    whatsappMessage: "Hello Happy Walls! I am interested in the *Midnight Split (Split Poster)*.",
   },
 ];

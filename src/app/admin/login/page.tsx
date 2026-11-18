@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
         <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden mb-4 shadow-sm ring-4 ring-amber-50">
           <Image
             src="/icon.png"
-            alt="Happy Wall Mascot"
+            alt="Happy Walls Mascot"
             width={128}
             height={128}
             priority
@@ -85,7 +85,7 @@ export default function AdminLoginPage() {
 
         {/* Brand Title */}
         <h1 className="font-manrope font-bold text-xl sm:text-2xl text-gray-900 tracking-tight text-center">
-          Happy Wall
+          Happy Walls
         </h1>
 
         {/* Welcome Back & Subtitle */}

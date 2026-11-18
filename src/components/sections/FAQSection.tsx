@@ -153,7 +153,7 @@ export const FAQSection: React.FC = () => {
                 </p>
 
                 <a
-                  href={buildWhatsAppUrl("Hello Happy Wall! I have a question regarding your posters and would like quick assistance.")}
+                  href={buildWhatsAppUrl("Hello Happy Walls! I have a question regarding your posters and would like quick assistance.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-3.5 px-5 rounded-2xl bg-brand-yellow hover:bg-brand-yellowHover text-charcoal-dark text-xs sm:text-sm font-manrope font-extrabold flex items-center justify-center gap-2.5 transition-all shadow-glow-yellow"

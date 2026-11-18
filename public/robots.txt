@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://happywall.think2xcreate.com/sitemap.xml
+Sitemap: https://happywalls.co.in/sitemap.xml

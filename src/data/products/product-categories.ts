@@ -11,7 +11,7 @@ export const PRODUCT_CATEGORIES: ProductCategoryDefinition[] = [
     id: "all",
     name: "All Products",
     slug: "all",
-    description: "Browse the complete Happy Wall catalog of individual posters, triptych sets, and custom framed prints.",
+    description: "Browse the complete Happy Walls catalog of individual posters, triptych sets, and custom framed prints.",
   },
   {
     id: "anime",

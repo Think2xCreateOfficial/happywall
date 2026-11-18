@@ -22,7 +22,7 @@ export function buildWhatsAppUrl(message: string, recipientPhone?: string): stri
  * Formats a general inquiry message.
  */
 export function formatGeneralInquiryMessage(): string {
-  return `Hello Happy Wall! 👋\n\nI was browsing your website and would love to know more about your poster collections and available designs.\n\nCould you please share your latest catalog and offers?`;
+  return `Hello Happy Walls! 👋\n\nI was browsing your website and would love to know more about your poster collections and available designs.\n\nCould you please share your latest catalog and offers?`;
 }
 
 /**
@@ -62,7 +62,7 @@ export function formatProductOrderMessage(order: ProductOrderEnquiry): string {
     `Subtotal: ₹${order.totalPrice}`,
     order.customerNote ? `Note: ${order.customerNote}` : "",
     `----------------------------------------`,
-    `Hello Happy Wall team! Could you please share the next steps for placing this order?`
+    `Hello Happy Walls team! Could you please share the next steps for placing this order?`
   );
 
   return detailsLines.filter(Boolean).join("\n");
@@ -119,12 +119,12 @@ export function formatCartOrderMessage(items: CartItem[], totalAmount: number): 
     `----------------------------------------`,
     `Cart Subtotal: ₹${totalAmount}`,
     `----------------------------------------`,
-    `Hello Happy Wall team! I would like to place this order. Please share the payment and dispatch details.`,
+    `Hello Happy Walls team! I would like to place this order. Please share the payment and dispatch details.`,
   ].join("\n");
 }
 
 /**
- * Formats a custom poster booking inquiry matching the clean Happy Wall production specification.
+ * Formats a custom poster booking inquiry matching the clean Happy Walls production specification.
  */
 export function formatCustomPosterMessage(enquiry: CustomPosterEnquiry): string {
   return [

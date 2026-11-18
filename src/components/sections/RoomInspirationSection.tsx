@@ -57,7 +57,7 @@ export const RoomInspirationSection: React.FC = () => {
             </h2>
 
             <p className="mt-2.5 text-xs sm:text-sm md:text-base text-brand-muted max-w-xl font-inter leading-relaxed">
-              Explore authentic room photographs styled with Happy Wall posters. Tap the numbered pins or frame buttons below to view sizing, details, and order directly on WhatsApp.
+              Explore authentic room photographs styled with Happy Walls posters. Tap the numbered pins or frame buttons below to view sizing, details, and order directly on WhatsApp.
             </p>
           </div>
 

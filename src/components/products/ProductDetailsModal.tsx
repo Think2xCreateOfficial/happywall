@@ -55,22 +55,26 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
   const activeSize =
     product.availableSizes.find((s) => s.id === selectedSizeId) || product.availableSizes[0];
 
-  // Business rule: Frame option is strictly for A4 posters only
+  // Business rule: Frame option is strictly for A4 posters only, and dynamically enabled per poster
   const isA4 = activeSize.id === "A4" || activeSize.id.toLowerCase().includes("a4");
-  const frameAddonPrice = isA4 && hasFrame ? 210 : 0;
+  const isFrameAvailable = isA4 && activeSize.frameAvailable === true;
+  const dynamicFramePrice = activeSize.framePrice ?? 210;
+  const frameAddonPrice = isFrameAvailable && hasFrame ? dynamicFramePrice : 0;
   const unitPrice = activeSize.price + frameAddonPrice;
   const totalPrice = unitPrice * quantity;
 
   const handleSizeSelect = (sizeId: PosterSize) => {
     setSelectedSizeId(sizeId);
-    // If selecting A5 or A6, strictly reset frame option
-    if (sizeId !== "A4" && !sizeId.toLowerCase().includes("a4")) {
+    const targetSize = product.availableSizes.find((s) => s.id === sizeId);
+    const targetIsA4 = sizeId === "A4" || sizeId.toLowerCase().includes("a4");
+    // If not A4 or if frame is not enabled for this poster, strictly reset frame option
+    if (!targetIsA4 || targetSize?.frameAvailable !== true) {
       setHasFrame(false);
     }
   };
 
   const handleAddToCart = () => {
-    addItem(product, activeSize.id, quantity, isA4 ? hasFrame : false);
+    addItem(product, activeSize.id, quantity, isFrameAvailable ? hasFrame : false);
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);
@@ -86,9 +90,9 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
       dimensions: activeSize.dimensions,
       quantity,
       totalPrice,
-      hasFrame: isA4 ? hasFrame : false,
+      hasFrame: isFrameAvailable ? hasFrame : false,
       basePrice: activeSize.price,
-      framePrice: isA4 && hasFrame ? 210 : 0,
+      framePrice: isFrameAvailable && hasFrame ? dynamicFramePrice : 0,
       customerNote: customerNote.trim() || undefined,
     });
 
@@ -170,7 +174,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
               <div className="mb-5 px-3 py-2 rounded-xl bg-brand-yellow/10 border border-brand-yellow/30 text-xs text-brand-yellow font-manrope font-bold flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
                 <span>
-                  Included: {isA4 && hasFrame ? "1 × A4 Poster Print + Premium Frame" : (product.inclusions || activeSize.inclusions)}
+                  Included: {isFrameAvailable && hasFrame ? "1 × A4 Poster Print + Premium Frame" : (product.inclusions || activeSize.inclusions)}
                 </span>
               </div>
             )}
@@ -215,8 +219,8 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
               </div>
             </div>
 
-            {/* A4 Optional Frame Selector (Only for A4) */}
-            {isA4 && (
+            {/* A4 Optional Frame Selector (Only for A4, and only when frame is available) */}
+            {isFrameAvailable && (
               <div className="mb-5 p-3 rounded-2xl bg-charcoal-surface border border-charcoal-border animate-in fade-in duration-200">
                 <label className="text-xs font-manrope font-extrabold text-white uppercase tracking-wider block mb-2">
                   Choose your A4 poster finish:
@@ -238,7 +242,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
                         Without Frame
                       </span>
                       <span className="text-xs font-manrope font-bold text-brand-yellow">
-                        ₹39
+                        ₹{activeSize.price}
                       </span>
                     </div>
                     <span className="text-[10px] text-brand-muted mt-1">
@@ -265,71 +269,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({ produc
                         With Frame
                       </span>
                       <span className="text-xs font-manrope font-bold text-brand-yellow">
-                        ₹249
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-brand-muted mt-1">
-                      Poster + Frame
-                    </span>
-                    {hasFrame && (
-                      <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-brand-yellow" />
-                    )}
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* A4 Optional Frame Selector (Only for A4) */}
-            {isA4 && (
-              <div className="mb-5 p-3 rounded-2xl bg-charcoal-surface border border-charcoal-border animate-in fade-in duration-200">
-                <label className="text-xs font-manrope font-extrabold text-white uppercase tracking-wider block mb-2">
-                  Choose your A4 poster finish:
-                </label>
-                <div className="grid grid-cols-2 gap-2.5">
-                  {/* Without Frame Option */}
-                  <button
-                    type="button"
-                    onClick={() => setHasFrame(false)}
-                    className={cn(
-                      "p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer",
-                      !hasFrame
-                        ? "border-brand-yellow bg-brand-yellow/10 shadow-sm ring-1 ring-brand-yellow/50"
-                        : "border-charcoal-border bg-charcoal-card hover:border-white/20"
-                    )}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <span className="font-manrope font-extrabold text-xs text-white">
-                        Without Frame
-                      </span>
-                      <span className="text-xs font-manrope font-bold text-brand-yellow">
-                        ₹39
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-brand-muted mt-1">
-                      Poster only
-                    </span>
-                    {!hasFrame && (
-                      <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-brand-yellow" />
-                    )}
-                  </button>
-
-                  {/* With Frame Option */}
-                  <button
-                    type="button"
-                    onClick={() => setHasFrame(true)}
-                    className={cn(
-                      "p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer",
-                      hasFrame
-                        ? "border-brand-yellow bg-brand-yellow/10 shadow-sm ring-1 ring-brand-yellow/50"
-                        : "border-charcoal-border bg-charcoal-card hover:border-white/20"
-                    )}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <span className="font-manrope font-extrabold text-xs text-white">
-                        With Frame
-                      </span>
-                      <span className="text-xs font-manrope font-bold text-brand-yellow">
-                        ₹249
+                        ₹{activeSize.price + dynamicFramePrice}
                       </span>
                     </div>
                     <span className="text-[10px] text-brand-muted mt-1">

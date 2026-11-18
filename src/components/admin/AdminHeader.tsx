@@ -33,7 +33,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({ adminEmail }) => {
           <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0 bg-white shadow-sm ring-1 ring-gray-100">
             <Image
               src="/icon.png"
-              alt="Happy Wall"
+              alt="Happy Walls"
               width={40}
               height={40}
               className="object-contain w-full h-full"
@@ -41,7 +41,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({ adminEmail }) => {
             />
           </div>
           <span className="font-manrope font-bold text-lg sm:text-xl text-gray-900 tracking-tight">
-            Happy Wall
+            Happy Walls
           </span>
         </Link>
 

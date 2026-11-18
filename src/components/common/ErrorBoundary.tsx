@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Happy Wall Component Error Caught by Boundary:", error, errorInfo);
+    console.error("Happy Walls Component Error Caught by Boundary:", error, errorInfo);
   }
 
   handleReset = () => {

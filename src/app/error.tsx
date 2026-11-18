@@ -59,7 +59,7 @@ export default function RootError({ error, reset }: ErrorProps) {
         <Link href="/" className="inline-block transition-transform hover:scale-105">
           <Image
             src="/happywall_logo.png"
-            alt="Happy Wall"
+            alt="Happy Walls"
             width={140}
             height={38}
             className="h-8 sm:h-9 w-auto object-contain"

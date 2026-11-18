@@ -11,7 +11,9 @@ export function constructMetadata(): Metadata {
     },
     description: SITE_CONFIG.description,
     keywords: [
+      "Happy Walls",
       "Happy Wall",
+      "happywalls.co.in",
       "Wall Posters Chennai",
       "Custom Poster Prints Chennai",
       "Palavakkam Wall Posters",
@@ -27,9 +29,9 @@ export function constructMetadata(): Metadata {
       "Demon Slayer Posters India",
       "Batman Split Poster",
     ],
-    authors: [{ name: "Happy Wall", url: SITE_CONFIG.url }],
+    authors: [{ name: "Happy Walls", url: SITE_CONFIG.url }],
     creator: "Think2xCreate",
-    publisher: "Happy Wall",
+    publisher: "Happy Walls",
     formatDetection: {
       telephone: true,
       email: true,
@@ -37,6 +39,10 @@ export function constructMetadata(): Metadata {
     },
     alternates: {
       canonical: SITE_CONFIG.url,
+      languages: {
+        "en-IN": SITE_CONFIG.url,
+        "x-default": SITE_CONFIG.url,
+      },
     },
     icons: {
       icon: [
@@ -54,7 +60,7 @@ export function constructMetadata(): Metadata {
     openGraph: {
       title: `${SITE_CONFIG.name} — Handcrafted Wall Posters, Anime Art & Split Triptychs | Chennai`,
       description:
-        "Discover aesthetic wall posters, continuous 3-panel split triptychs, anime prints, and custom framing from Happy Wall, Palavakkam, Chennai. Fast 24-48 hr delivery across Chennai.",
+        "Discover aesthetic wall posters, continuous 3-panel split triptychs, anime prints, and custom framing from Happy Walls, Palavakkam, Chennai. Fast 24-48 hr delivery across Chennai.",
       url: SITE_CONFIG.url,
       siteName: SITE_CONFIG.name,
       locale: "en_IN",
@@ -64,7 +70,7 @@ export function constructMetadata(): Metadata {
           url: `${SITE_CONFIG.url}/og-image.jpg`,
           width: 1200,
           height: 630,
-          alt: "Happy Wall — Handcrafted Wall Posters & Triptychs in Palavakkam, Chennai",
+          alt: "Happy Walls — Handcrafted Wall Posters & Triptychs in Palavakkam, Chennai",
           type: "image/jpeg",
         },
       ],
@@ -182,7 +188,7 @@ export function generateStructuredData() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Happy Wall Signature Poster Collections",
+    name: "Happy Walls Signature Poster Collections",
     description: "Curated wall posters across Anime, Gaming, and Continuous Split Triptychs.",
     itemListElement: [
       {

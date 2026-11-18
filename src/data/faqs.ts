@@ -13,14 +13,14 @@ export const FAQS: FAQItem[] = [
     category: "collections",
     categoryLabel: "Poster Collections",
     question: "Where can I buy wall posters online in Chennai?",
-    answer: "You can buy premium wall posters online in Chennai directly from Happy Wall, based in Palavakkam, Chennai (600041). We craft wall art printed on premium 270 GSM glossy photo sheets to deliver rich colours and sharp details, and coordinate orders seamlessly via WhatsApp with swift delivery across Chennai and Tamil Nadu.",
+    answer: "You can buy premium wall posters online in Chennai directly from Happy Walls, based in Palavakkam, Chennai (600041). We craft wall art printed on premium 270 GSM glossy photo sheets to deliver rich colours and sharp details, and coordinate orders seamlessly via WhatsApp with swift delivery across Chennai and Tamil Nadu.",
   },
   {
     id: "faq-types-available",
     category: "collections",
     categoryLabel: "Poster Collections",
-    question: "What types of wall posters are available at Happy Wall?",
-    answer: "Happy Wall offers three signature collections: high-octane Anime posters (shonen icons and dark aesthetic prints), Gaming battlestation posters, and continuous 3-panel Split Posters (triptychs). We also provide fully custom photo and art printing tailored to your room decor.",
+    question: "What types of wall posters are available at Happy Walls?",
+    answer: "Happy Walls offers three signature collections: high-octane Anime posters (shonen icons and dark aesthetic prints), Gaming battlestation posters, and continuous 3-panel Split Posters (triptychs). We also provide fully custom photo and art printing tailored to your room decor.",
   },
   {
     id: "faq-anime-gaming",
@@ -43,7 +43,7 @@ export const FAQS: FAQItem[] = [
     category: "custom",
     categoryLabel: "Custom Posters",
     question: "Can I order custom-designed wall posters?",
-    answer: "Yes, you can order custom-designed wall posters through Happy Wall. Simply submit your requirements using our website custom poster enquiry form or message our Palavakkam studio on WhatsApp (+91 73395 64538) to discuss dimensions, framing, and design ideas.",
+    answer: "Yes, you can order custom-designed wall posters through Happy Walls. Simply submit your requirements using our website custom poster enquiry form or message our Palavakkam studio on WhatsApp (+91 73395 64538) to discuss dimensions, framing, and design ideas.",
   },
   {
     id: "faq-print-own-design",
@@ -56,8 +56,8 @@ export const FAQS: FAQItem[] = [
     id: "faq-sizes-available",
     category: "custom",
     categoryLabel: "Custom Posters",
-    question: "What poster sizes and sets are available at Happy Wall?",
-    answer: "Happy Wall offers individual posters in A4 size (₹39 without frame, or ₹249 with optional frame add-on), A5 size (₹19), and A6 size (₹9), alongside our 3-panel Split Poster Sets (3 × A4 size posters for ₹109), Polarized Customized Photo Sets with Spotify (15 photos for ₹99), and complete Custom Poster + Frame Combos (₹249).",
+    question: "What poster sizes and sets are available at Happy Walls?",
+    answer: "Happy Walls offers individual posters in A4 size (₹39 without frame, or ₹249 with optional frame add-on), A5 size (₹19), and A6 size (₹9), alongside our 3-panel Split Poster Sets (3 × A4 size posters for ₹109), Polarized Customized Photo Sets with Spotify (15 photos for ₹99), and complete Custom Poster + Frame Combos (₹249).",
   },
   {
     id: "faq-room-poster-advice",
@@ -72,7 +72,7 @@ export const FAQS: FAQItem[] = [
     id: "faq-how-to-order",
     category: "ordering",
     categoryLabel: "Ordering & Delivery",
-    question: "How can I order wall posters from Happy Wall?",
+    question: "How can I order wall posters from Happy Walls?",
     answer: "Ordering is straightforward and personal: browse our website collections, select your preferred posters, or fill out the custom enquiry form. Your order is formatted and opened directly in WhatsApp, where our team confirms specifications and shares payment and dispatch details.",
   },
   {
@@ -93,8 +93,8 @@ export const FAQS: FAQItem[] = [
     id: "faq-contact-whatsapp",
     category: "ordering",
     categoryLabel: "Ordering & Delivery",
-    question: "How can I contact Happy Wall on WhatsApp?",
-    answer: "You can contact Happy Wall directly on WhatsApp by messaging our official business number: +91 73395 64538. Our studio team is available to assist you with catalog previews, custom sizing, and order coordination.",
+    question: "How can I contact Happy Walls on WhatsApp?",
+    answer: "You can contact Happy Walls directly on WhatsApp by messaging our official business number: +91 73395 64538. Our studio team is available to assist you with catalog previews, custom sizing, and order coordination.",
   },
 
   // --- 4. Product and Customer Support ---

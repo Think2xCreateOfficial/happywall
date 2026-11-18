@@ -62,7 +62,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       }
     } catch (error) {
-      console.warn("Happy Wall: Unable to restore saved cart state, resetting.", error);
+      console.warn("Happy Walls: Unable to restore saved cart state, resetting.", error);
     } finally {
       setIsInitialized(true);
     }
@@ -74,7 +74,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
     } catch (error) {
-      console.warn("Happy Wall: Unable to persist cart state to localStorage.", error);
+      console.warn("Happy Walls: Unable to persist cart state to localStorage.", error);
     }
   }, [items, isInitialized]);
 
@@ -90,7 +90,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       hasFrameChoice: boolean = false
     ) => {
       if (!itemOrProduct || !itemOrProduct.id) {
-        console.error("Happy Wall: Invalid product provided to addItem.");
+        console.error("Happy Walls: Invalid product provided to addItem.");
         return;
       }
 

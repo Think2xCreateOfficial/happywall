@@ -8,6 +8,7 @@ import {
   PosterVariantInput,
   DEFAULT_VARIANT_PRESETS,
   SPLIT_SET_VARIANT_PRESETS,
+  parseVariantFrameData,
 } from "@/services/poster.service";
 import { ImageUploader } from "./ImageUploader";
 import { uploadImage, deleteStorageImage } from "@/services/storage.service";
@@ -56,16 +57,21 @@ export const PosterDrawer: React.FC<PosterDrawerProps> = ({
       setIsBestSelling(poster.is_best_selling ?? false);
       setVariants(
         poster.variants && poster.variants.length > 0
-          ? poster.variants.map((v) => ({
-              id: v.id,
-              variant_name: v.variant_name,
-              size_code: v.size_code,
-              dimensions: v.dimensions,
-              price: Number(v.price),
-              inclusions: v.inclusions,
-              is_active: v.is_active,
-              display_order: v.display_order,
-            }))
+          ? poster.variants.map((v) => {
+              const parsed = parseVariantFrameData(v);
+              return {
+                id: v.id,
+                variant_name: v.variant_name,
+                size_code: v.size_code,
+                dimensions: v.dimensions,
+                price: Number(v.price),
+                inclusions: parsed.clean_inclusions,
+                is_active: v.is_active,
+                display_order: v.display_order,
+                frame_available: parsed.frame_available,
+                frame_price: parsed.frame_price,
+              };
+            })
           : []
       );
     } else {
@@ -173,10 +179,11 @@ export const PosterDrawer: React.FC<PosterDrawerProps> = ({
       // 2. Enforce business rule: Frames are strictly available for A4 posters only
       const sanitizedVariants = variants.map((v) => {
         const isA4 = v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4");
+        const hasFrame = isA4 && Boolean(v.frame_available);
         return {
           ...v,
-          frame_available: isA4 ? Boolean(v.frame_available ?? true) : false,
-          frame_price: isA4 && (v.frame_available ?? true) ? Number(v.frame_price ?? 210) : 0,
+          frame_available: hasFrame,
+          frame_price: hasFrame ? Number(v.frame_price ?? 210) : 0,
         };
       });
 
@@ -465,7 +472,7 @@ export const PosterDrawer: React.FC<PosterDrawerProps> = ({
                             <label className="flex items-center gap-2 cursor-pointer">
                               <input
                                 type="checkbox"
-                                checked={variant.frame_available ?? true}
+                                checked={Boolean(variant.frame_available)}
                                 onChange={(e) =>
                                   handleUpdateVariant(idx, "frame_available", e.target.checked)
                                 }
@@ -476,7 +483,7 @@ export const PosterDrawer: React.FC<PosterDrawerProps> = ({
                               </span>
                             </label>
 
-                            {(variant.frame_available ?? true) && (
+                            {Boolean(variant.frame_available) && (
                               <div className="flex items-center gap-1 text-[11px]">
                                 <span className="text-gray-500 font-medium">Add-on: ₹</span>
                                 <input

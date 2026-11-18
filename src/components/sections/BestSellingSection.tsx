@@ -6,7 +6,7 @@ import { ProductCarousel } from "@/components/products/ProductCarousel";
 import { ProductDetailsModal } from "@/components/products/ProductDetailsModal";
 import { Product, SizeOption } from "@/types/product";
 import { cn } from "@/lib/utils";
-import { getPosters } from "@/services/poster.service";
+import { getPosters, parseVariantFrameData } from "@/services/poster.service";
 import { PosterWithCategory } from "@/types/database.types";
 import {
   INDIVIDUAL_POSTER_SIZES,
@@ -27,21 +27,18 @@ function mapPosterToProduct(poster: PosterWithCategory): Product {
 
   const availableSizes: SizeOption[] =
     poster.variants && poster.variants.length > 0
-      ? poster.variants.map((v) => ({
-          id: v.size_code,
-          name: v.variant_name,
-          dimensions: v.dimensions,
-          price: Number(v.price),
-          inclusions: v.inclusions || undefined,
-          frameAvailable:
-            v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4")
-              ? Boolean((v as unknown as { frame_available?: boolean }).frame_available ?? true)
-              : false,
-          framePrice:
-            v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4")
-              ? Number((v as unknown as { frame_price?: number }).frame_price || 210)
-              : 0,
-        }))
+      ? poster.variants.map((v) => {
+          const parsed = parseVariantFrameData(v);
+          return {
+            id: v.size_code,
+            name: v.variant_name,
+            dimensions: v.dimensions,
+            price: Number(v.price),
+            inclusions: parsed.clean_inclusions || undefined,
+            frameAvailable: parsed.frame_available,
+            framePrice: parsed.frame_price,
+          };
+        })
       : isSplit
       ? SPLIT_POSTER_SIZES
       : INDIVIDUAL_POSTER_SIZES;

@@ -5,6 +5,7 @@ import { Edit2, Trash2, Plus, Image as ImageIcon, Search, ChevronDown } from "lu
 import { PosterWithCategory, CategoryRow } from "@/types/database.types";
 import { SafeImage } from "@/components/ui/SafeImage";
 import { formatINR } from "@/lib/utils";
+import { parseVariantFrameData } from "@/services/poster.service";
 import { AdminSpinner } from "../AdminSpinner";
 
 interface PosterTableProps {
@@ -148,15 +149,19 @@ export const PosterTable: React.FC<PosterTableProps> = ({
                           ) : (
                             <span>{formatINR(poster.price)}</span>
                           )}
-                          {poster.variants?.some(
-                            (v) =>
-                              (v.size_code === "A4" || v.variant_name.includes("A4")) &&
-                              (v as unknown as { frame_available?: boolean }).frame_available
-                          ) && (
-                            <span className="block text-[10px] text-amber-700 font-normal">
-                              A4 Frame: +₹210
-                            </span>
-                          )}
+                          {(() => {
+                            const framedA4 = poster.variants?.find((v) => {
+                              const parsed = parseVariantFrameData(v);
+                              return parsed.frame_available;
+                            });
+                            if (!framedA4) return null;
+                            const parsed = parseVariantFrameData(framedA4);
+                            return (
+                              <span className="block text-[10px] text-amber-700 font-normal">
+                                A4 Frame: +₹{parsed.frame_price}
+                              </span>
+                            );
+                          })()}
                         </div>
                       </td>
 
@@ -253,6 +258,19 @@ export const PosterTable: React.FC<PosterTableProps> = ({
                           Inactive
                         </span>
                       )}
+                      {(() => {
+                        const framedA4 = poster.variants?.find((v) => {
+                          const parsed = parseVariantFrameData(v);
+                          return parsed.frame_available;
+                        });
+                        if (!framedA4) return null;
+                        const parsed = parseVariantFrameData(framedA4);
+                        return (
+                          <span className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-medium">
+                            +₹{parsed.frame_price} Frame
+                          </span>
+                        );
+                      })()}
                     </div>
 
                     <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-50">

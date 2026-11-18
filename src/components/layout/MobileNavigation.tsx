@@ -56,7 +56,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         <div className="flex items-center gap-3">
           <Image
             src="/happywall_logo.png"
-            alt="Happy Wall"
+            alt="Happy Walls"
             width={140}
             height={40}
             className="h-9 w-auto object-contain"

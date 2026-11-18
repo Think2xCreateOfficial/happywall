@@ -82,8 +82,88 @@ export const SPLIT_SET_VARIANT_PRESETS: PosterVariantInput[] = [
     inclusions: "3 × A4 size posters",
     is_active: true,
     display_order: 1,
+    frame_available: false,
+    frame_price: 0,
   },
 ];
+
+/**
+ * Strips internal encoding metadata tags from inclusions text for clean customer display.
+ */
+export function cleanInclusions(inclusions: string | null | undefined): string {
+  if (!inclusions) return "";
+  return inclusions
+    .replace(/\[NO_FRAME\]/g, "")
+    .replace(/\[FRAME_OPT:[^\]]+\]/g, "")
+    .trim();
+}
+
+/**
+ * Parses frame availability, add-on price, and clean inclusions from a variant object.
+ * Resilient to both native Supabase column values and fallback metadata-encoded values.
+ */
+export function parseVariantFrameData(v: {
+  size_code?: string;
+  variant_name?: string;
+  frame_available?: boolean;
+  frame_price?: number;
+  inclusions?: string | null;
+}): { frame_available: boolean; frame_price: number; clean_inclusions: string } {
+  const isA4 =
+    v.size_code === "A4" ||
+    (Boolean(v.variant_name) && v.variant_name!.toLowerCase().includes("a4"));
+
+  const rawInclusions = v.inclusions || "";
+  const clean = cleanInclusions(rawInclusions);
+
+  if (!isA4) {
+    return { frame_available: false, frame_price: 0, clean_inclusions: clean };
+  }
+
+  // Check 1: Explicit boolean column from database (if migrated)
+  if (typeof v.frame_available === "boolean") {
+    return {
+      frame_available: v.frame_available,
+      frame_price: v.frame_available ? (Number(v.frame_price) || 210) : 0,
+      clean_inclusions: clean,
+    };
+  }
+
+  // Check 2: Fallback encoded metadata inside inclusions
+  if (rawInclusions.includes("[NO_FRAME]")) {
+    return { frame_available: false, frame_price: 0, clean_inclusions: clean };
+  }
+
+  if (rawInclusions.includes("[FRAME_OPT:")) {
+    const match = rawInclusions.match(/\[FRAME_OPT:(\d+(\.\d+)?)\]/);
+    const price = match ? Number(match[1]) : 210;
+    return { frame_available: true, frame_price: price, clean_inclusions: clean };
+  }
+
+  // Check 3: Default for newly created or legacy A4 where frame was enabled
+  return { frame_available: true, frame_price: 210, clean_inclusions: clean };
+}
+
+/**
+ * Encodes frame availability into inclusions as a resilient fallback in case
+ * the database table does not yet have frame_available / frame_price columns.
+ */
+export function encodeVariantInclusions(
+  inclusions: string | null | undefined,
+  isA4: boolean,
+  hasFrame: boolean,
+  framePrice: number
+): string {
+  const clean = cleanInclusions(inclusions);
+
+  if (!isA4) return clean;
+
+  if (hasFrame) {
+    return clean ? `${clean} [FRAME_OPT:${framePrice}]` : `1 × A4 Poster Print [FRAME_OPT:${framePrice}]`;
+  } else {
+    return clean ? `${clean} [NO_FRAME]` : `1 × A4 Poster Print [NO_FRAME]`;
+  }
+}
 
 // Fallback initial posters matching reference screenshot
 const DEFAULT_FALLBACK_POSTERS: PosterWithCategory[] = [
@@ -121,6 +201,8 @@ const DEFAULT_FALLBACK_POSTERS: PosterWithCategory[] = [
         inclusions: "1 × A6 Poster Print",
         is_active: true,
         display_order: 1,
+        frame_available: false,
+        frame_price: 0,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
@@ -134,6 +216,8 @@ const DEFAULT_FALLBACK_POSTERS: PosterWithCategory[] = [
         inclusions: "1 × A5 Poster Print",
         is_active: true,
         display_order: 2,
+        frame_available: false,
+        frame_price: 0,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
@@ -147,6 +231,8 @@ const DEFAULT_FALLBACK_POSTERS: PosterWithCategory[] = [
         inclusions: "1 × A4 Poster Print",
         is_active: true,
         display_order: 3,
+        frame_available: true,
+        frame_price: 210,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
@@ -186,6 +272,8 @@ const DEFAULT_FALLBACK_POSTERS: PosterWithCategory[] = [
         inclusions: "1 × A6 Poster Print",
         is_active: true,
         display_order: 1,
+        frame_available: false,
+        frame_price: 0,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
@@ -199,6 +287,8 @@ const DEFAULT_FALLBACK_POSTERS: PosterWithCategory[] = [
         inclusions: "1 × A5 Poster Print",
         is_active: true,
         display_order: 2,
+        frame_available: false,
+        frame_price: 0,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
@@ -212,6 +302,8 @@ const DEFAULT_FALLBACK_POSTERS: PosterWithCategory[] = [
         inclusions: "1 × A4 Poster Print",
         is_active: true,
         display_order: 3,
+        frame_available: true,
+        frame_price: 210,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
@@ -353,10 +445,21 @@ export async function getPosters(options?: {
         category: CategoryRow | CategoryRow[];
         variants: PosterVariantRow[];
       };
+      const rawVariants = item.variants || [];
+      const normalizedVariants = rawVariants.map((v) => {
+        const parsed = parseVariantFrameData(v);
+        return {
+          ...v,
+          inclusions: parsed.clean_inclusions,
+          frame_available: parsed.frame_available,
+          frame_price: parsed.frame_price,
+        };
+      });
+
       return {
         ...item,
         category: Array.isArray(item.category) ? item.category[0] : item.category,
-        variants: item.variants || [],
+        variants: normalizedVariants,
       };
     });
 
@@ -449,17 +552,21 @@ export async function createPoster(
     if (input.variants && input.variants.length > 0 && posterData?.id) {
       const variantsToInsert = input.variants.map((v, idx) => {
         const isA4 = v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4");
+        const hasFrame = isA4 && Boolean(v.frame_available);
+        const framePrice = hasFrame ? Number(v.frame_price || 210) : 0;
+        const encodedInclusions = encodeVariantInclusions(v.inclusions, isA4, hasFrame, framePrice);
+
         return {
           poster_id: posterData.id,
           variant_name: v.variant_name,
           size_code: v.size_code,
           dimensions: v.dimensions,
           price: v.price,
-          inclusions: v.inclusions || null,
+          inclusions: encodedInclusions || null,
           is_active: v.is_active ?? true,
           display_order: v.display_order ?? idx + 1,
-          frame_available: isA4 ? (v.frame_available ?? true) : false,
-          frame_price: isA4 && (v.frame_available ?? true) ? (v.frame_price || 210) : 0,
+          frame_available: hasFrame,
+          frame_price: framePrice,
         };
       });
 
@@ -567,17 +674,21 @@ export async function updatePoster(
       if (!delError && input.variants.length > 0) {
         const variantsToInsert = input.variants.map((v, idx) => {
           const isA4 = v.size_code === "A4" || v.variant_name.toLowerCase().includes("a4");
+          const hasFrame = isA4 && Boolean(v.frame_available);
+          const framePrice = hasFrame ? Number(v.frame_price || 210) : 0;
+          const encodedInclusions = encodeVariantInclusions(v.inclusions, isA4, hasFrame, framePrice);
+
           return {
             poster_id: id,
             variant_name: v.variant_name,
             size_code: v.size_code,
             dimensions: v.dimensions,
             price: v.price,
-            inclusions: v.inclusions || null,
+            inclusions: encodedInclusions || null,
             is_active: v.is_active ?? true,
             display_order: v.display_order ?? idx + 1,
-            frame_available: isA4 ? (v.frame_available ?? true) : false,
-            frame_price: isA4 && (v.frame_available ?? true) ? (v.frame_price || 210) : 0,
+            frame_available: hasFrame,
+            frame_price: framePrice,
           };
         });
 

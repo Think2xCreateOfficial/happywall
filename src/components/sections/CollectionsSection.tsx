@@ -71,7 +71,7 @@ export const CollectionsSection: React.FC = () => {
             sizeText: isSplit ? "3 × A4 Set · ₹109" : `From ₹${minPrice}`,
             price: minPrice,
             inclusions: isSplit ? "3 × A4 size posters" : "1 × Poster Print",
-            whatsappMessage: `Hello Happy Wall! I want to order the *${p.title}* poster.`,
+            whatsappMessage: `Hello Happy Walls! I want to order the *${p.title}* poster.`,
           };
         });
         setPosters(mappedPosters);

@@ -16,7 +16,7 @@ export default function NotFound() {
         <Link href="/" className="inline-block transition-transform hover:scale-105">
           <Image
             src="/happywall_logo.png"
-            alt="Happy Wall"
+            alt="Happy Walls"
             width={150}
             height={42}
             className="h-8 sm:h-9 w-auto object-contain"
@@ -82,7 +82,7 @@ export default function NotFound() {
 
       {/* Clean Bottom Note */}
       <footer className="w-full pb-8 px-6 text-center text-xs text-brand-muted/60 z-10 font-inter">
-        © {new Date().getFullYear()} Happy Wall · Handcrafted Wall Posters · Palavakkam, Chennai
+        © {new Date().getFullYear()} Happy Walls · Handcrafted Wall Posters · Palavakkam, Chennai
       </footer>
     </main>
   );
